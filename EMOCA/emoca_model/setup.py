@@ -1,7 +1,7 @@
 import setuptools
 
 # requirements = open("requirements36.txt").read().splitlines()
-requirements = open("requirements38.txt").read().splitlines()
+requirements = open("requirements.txt").read().splitlines()
 # dev_requirements = open("requirements_dev.txt").read().splitlines()
 
 with open("README.md", "r") as fh:

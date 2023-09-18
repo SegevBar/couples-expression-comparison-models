@@ -35,8 +35,8 @@ conda activate work38
 #pip install ipykernel
 #pip install ffmpeg-python
 #
-#echo "Making sure Pytorch3D installed correctly"
-#pip install git+https://github.com/facebookresearch/pytorch3d.git@v0.6.2
+echo "Making sure Pytorch3D installed correctly"
+pip install git+https://github.com/facebookresearch/pytorch3d.git@v0.6.2
 echo "Installing GDL"
 pip install -e .
 echo "Installation finished"
