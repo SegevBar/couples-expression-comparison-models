@@ -1,10 +1,10 @@
 import setuptools
 
 # requirements = open("requirements36.txt").read().splitlines()
-requirements = open("requirements.txt").read().splitlines()
+requirements = open("emoca_model/requirements.txt").read().splitlines()
 # dev_requirements = open("requirements_dev.txt").read().splitlines()
 
-with open("README.md", "r") as fh:
+with open("emoca_model/README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(

@@ -1,6 +1,4 @@
 #!/bin/bash
-cd ./couples-expression-comparison-models/EMOCA/
-
 echo "Pulling submodules"
 bash emoca_model/pull_submodules.sh
 echo "Installing mamba"
