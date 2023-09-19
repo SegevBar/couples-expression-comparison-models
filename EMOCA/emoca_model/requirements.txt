@@ -139,7 +139,6 @@ python-dateutil==2.8.2
 python-slugify==8.0.1
 python-speech-features==0.6
 pytorch-lightning==1.4.9
-pytorch3d @ git+https://github.com/facebookresearch/pytorch3d.git@2bd65027ca5c3b87b77d4f05b8eacae58d8d106f
 pytz==2023.3.post1
 PyWavelets==1.4.1
 PyYAML==6.0.1
@@ -197,3 +196,4 @@ yapf==0.40.1
 yarl==1.9.2
 youtube-dl==2021.6.6
 zipp==3.17.0
+# pytorch3d @ git+https://github.com/facebookresearch/pytorch3d.git@2bd65027ca5c3b87b77d4f05b8eacae58d8d106f
