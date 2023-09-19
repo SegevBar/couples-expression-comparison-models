@@ -1,6 +1,4 @@
 #!/bin/bash
-echo "Cloning EMOCA repo"
-git clone --recurse-submodules https://github.com/SegevBar/couples-expression-comparison-models.git
 cd ./couples-expression-comparison-models/EMOCA/
 
 echo "Pulling submodules"
