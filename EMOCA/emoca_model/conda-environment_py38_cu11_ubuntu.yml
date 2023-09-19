@@ -1,4 +1,4 @@
-name: work38
+name: emoca
 channels:
   - huggingface
   - pytorch

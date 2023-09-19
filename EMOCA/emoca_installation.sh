@@ -25,6 +25,7 @@ else
 fi
 echo "Installing conda packages"
 mamba env update -n emoca --file emoca_model/conda-environment_init.yml
+
 echo "Installing other requirements"
 pip install -r emoca_model/requirements.txt
 pip install Cython==0.29
