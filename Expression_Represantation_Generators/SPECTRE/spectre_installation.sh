@@ -11,22 +11,24 @@ else
     echo "Conda environment not activated. Probably it was not created successfully for some reason. Please activate the conda environment before running this script"
     exit
 fi
+
 echo "Installing conda packages"
 conda install pytorch==1.11.0 torchvision==0.12.0 torchaudio==0.11.0 cudatoolkit=11.3 -c pytorch
 conda install -c conda-forge -c fvcore fvcore iopath
 pip install -r spectre_model/requirements.txt
-conda install -c conda-forge yacs
-pip install numpy==1.23.1
 
-echo "Installing external packages"
 cd spectre_model/external/face_alignment
 pip install -e .
 cd ../face_detection
 git lfs pull
 pip install -e .
+cd ../..
 
 pip install gdown
+bash spectre_model/quick_install.sh
+
+conda install -c conda-forge yacs
+pip install numpy==1.23.1
 pip install git+https://github.com/facebookresearch/pytorch3d.git@v0.6.2
-### This takes about 20 minutes
 
 echo "Installation finished"
