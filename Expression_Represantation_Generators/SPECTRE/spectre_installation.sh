@@ -19,7 +19,7 @@ pip install -c conda-forge yacs
 pip install numpy==1.23.1
 
 echo "Installing external packages"
-cd spectre/external/face_alignment
+cd spectre_model/external/face_alignment
 pip install -e .
 cd ../face_detection
 git lfs pull
