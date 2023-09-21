@@ -19,14 +19,18 @@ pip install -c conda-forge yacs
 pip install numpy==1.23.1
 pip install git+https://github.com/facebookresearch/pytorch3d.git@v0.6.2
 
-#echo "Making sure Pytorch3D installed correctly"
-#pip install git+https://github.com/facebookresearch/pytorch3d.git@v0.6.2
-
 echo "Installing external packages"
 cd spectre/external/face_alignment
 pip install -e .
 cd ../face_detection
 git lfs pull
 pip install -e .
+
+pip install gdown
+bash quick_install.sh
+### Enter your FLAME login
+
+#pip install git+https://github.com/facebookresearch/pytorch3d.git@v0.6.2
+### This takes about 20 minutes
 
 echo "Installation finished"
