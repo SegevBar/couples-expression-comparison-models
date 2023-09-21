@@ -1,1 +1,7 @@
 
+[submodule "Expression_Represantation_Generators/SPECTRE/spectre_model/external/face_alignment"]
+	path = Expression_Represantation_Generators/SPECTRE/spectre_model/external/face_alignment
+	url = https://github.com/hhj1897/face_alignment.git
+[submodule "Expression_Represantation_Generators/SPECTRE/spectre_model/external/face_detection"]
+	path = Expression_Represantation_Generators/SPECTRE/spectre_model/external/face_detection
+	url = https://github.com/hhj1897/face_detection.git
