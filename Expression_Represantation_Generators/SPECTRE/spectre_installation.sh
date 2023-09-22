@@ -25,7 +25,7 @@ pip install -e .
 cd ../..
 
 pip install gdown
-bash spectre_model/quick_install.sh
+bash quick_install.sh
 
 conda install -c conda-forge yacs
 pip install numpy==1.23.1
