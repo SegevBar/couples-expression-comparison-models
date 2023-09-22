@@ -24,7 +24,7 @@ class LRS3Dataset(Dataset):
             self.scale = 1.6
 
         if self.dataset_name == 'LRS3':
-            labels = open("../Visual_Speech_Recognition_for_Multiple_Languages/labels/LRS3/test.ref")
+            labels = open("../Visual_Speech/labels/LRS3/test.ref")
             self.labels_dict = {}
             for line in labels.readlines():
                 basename, groundtruth = line.split()[0], " ".join(line.split()[1:])
@@ -72,7 +72,7 @@ class LRS3Dataset(Dataset):
         sample = self.data_list[index]
 
         if self.dataset_name == "LRS3":
-            landmarks_filename = os.path.join("../Visual_Speech_Recognition_for_Multiple_Languages","landmarks", "LRS3", "LRS3_landmarks", sample[0],
+            landmarks_filename = os.path.join("../Visual_Speech","landmarks", "LRS3", "LRS3_landmarks", sample[0],
                                               sample[1].replace(".txt", ".pkl"))
             if host == "glaros" or host == "kalymnos":
                 data_filename = os.path.join("/gpu-data3/filby/LRS3", sample[0], sample[1].replace(".txt", ""))
@@ -84,21 +84,21 @@ class LRS3Dataset(Dataset):
                                          sample[0].replace(".mp4", ""))
 
             landmarks_filename = os.path.join(
-                "../Visual_Speech_Recognition_for_Multiple_Languages",
+                "../Visual_Speech",
                 "landmarks", "M003_images2vid", sample[0].replace(".mp4", ".pkl"))
         elif "MEAD" in self.dataset_name:
             data_filename = os.path.join(f"{data_root}/images",
                                          sample[0])
 
             landmarks_filename = os.path.join(
-                "../Visual_Speech_Recognition_for_Multiple_Languages",
+                "../Visual_Speech",
                 "landmarks", "MEAD_images_25fps", sample[0]+".pkl")
         elif "TCDTIMIT" in self.dataset_name:
             data_filename = os.path.join(f"{tcd_root}/images",
                                          sample[0].replace(".mp4","").replace("59F","59M"))
 
             landmarks_filename = os.path.join(
-                "../Visual_Speech_Recognition_for_Multiple_Languages",
+                "../Visual_Speech",
                 "landmarks", "TCDTIMIT_images_25fps", sample[0].replace(".mp4",".pkl").replace("59F","59M"))
 
         with open(landmarks_filename, "rb") as pkl_file:
@@ -295,7 +295,7 @@ import glob
 def build_train_val_MEAD(config):
     # l = list(os.listdir(root_path))
 
-    # labels = open("../Visual_Speech_Recognition_for_Multiple_Languages/list.txt")
+    # labels = open("../Visual_Speech/list.txt")
     # labels_dict = {}
     # for line in labels.readlines():
     #     basename, groundtruth = line.split()[0], " ".join(line.split()[1:])

@@ -52,13 +52,13 @@ cfg.model.temporal = True
 # ---------------------------------------------------------------------------- #
 cfg.dataset = CN()
 cfg.dataset.LRS3_path = "/gpu-data3/filby/LRS3"
-cfg.dataset.LRS3_landmarks_path = "../Visual_Speech_Recognition_for_Multiple_Languages/landmarks/LRS3/LRS3_landmarks"
+cfg.dataset.LRS3_landmarks_path = "../Visual_Speech/landmarks/LRS3/LRS3_landmarks"
 
 cfg.dataset.LRS3_path = "/gpu-data3/filby/LRS3"
-cfg.dataset.LRS3_landmarks_path = "../Visual_Speech_Recognition_for_Multiple_Languages/landmarks/LRS3/LRS3_landmarks"
+cfg.dataset.LRS3_landmarks_path = "../Visual_Speech/landmarks/LRS3/LRS3_landmarks"
 
 cfg.dataset.LRS3_path = "/gpu-data3/filby/LRS3"
-cfg.dataset.LRS3_landmarks_path = "../Visual_Speech_Recognition_for_Multiple_Languages/landmarks/LRS3/LRS3_landmarks"
+cfg.dataset.LRS3_landmarks_path = "../Visual_Speech/landmarks/LRS3/LRS3_landmarks"
 
 cfg.dataset.batch_size = 1
 cfg.dataset.K = 20

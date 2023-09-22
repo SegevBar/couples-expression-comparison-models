@@ -18,6 +18,8 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from . import util
+from pytorch3d.structures import Meshes
+from pytorch3d.io import load_obj
 
 def set_rasterizer(type = 'pytorch3d'):
     if type == 'pytorch3d':

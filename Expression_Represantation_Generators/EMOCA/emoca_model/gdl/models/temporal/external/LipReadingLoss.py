@@ -7,14 +7,14 @@ path_to_ext = str(get_path_to_externals())
 if path_to_ext not in sys.path:
     sys.path.insert(0, path_to_ext)
 
-path_to_lipreading = str(Path(path_to_ext) / "spectre" / "external" / "Visual_Speech_Recognition_for_Multiple_Languages")
+path_to_lipreading = str(Path(path_to_ext) / "spectre_model" / "external" / "Visual_Speech")
 if path_to_lipreading not in sys.path:
     sys.path.insert(0, path_to_lipreading)
 
 try:
     from configparser import ConfigParser
-    from spectre.external.Visual_Speech_Recognition_for_Multiple_Languages.lipreading.model import Lipreading
-    from spectre.external.Visual_Speech_Recognition_for_Multiple_Languages.dataloader.transform import Compose, Normalize, CenterCrop, SpeedRate, Identity
+    from spectre.external.Visual_Speech.lipreading.model import Lipreading
+    from spectre.external.Visual_Speech.dataloader.transform import Compose, Normalize, CenterCrop, SpeedRate, Identity
     import espnet
 except ImportError as e:
     print("Error: Lipreading model not found. Please install the Visual_Speech_Recognition_for_Multiple_Languages package.")    
@@ -58,7 +58,7 @@ class LipReadingNet(torch.nn.Module):
         """
         # this is my - hopefully fixed version of the forward pass
         # In other words, in the lip reading repo code, the following happens:
-        # gdl/external/spectre/external/Visual_Speech_Recognition_for_Multiple_Languages/espnet/nets/pytorch_backend/backbones/conv3d_extractor.py
+        # gdl/external/spectre/external/Visual_Speech/espnet/nets/pytorch_backend/backbones/conv3d_extractor.py
         # line 95:
         # B, C, T, H, W = xs_pad.size() # evaluated to: torch.Size([B, 1, 70, 88, 88]) - so the temporal window is collapsed into the batch size
         ndim = lip_images.ndim

@@ -73,7 +73,7 @@ def save2avi(filename, data=None, fps=25):
 
 
 def predict_text(lipreader, mouth_sequence):
-    from external.Visual_Speech_Recognition_for_Multiple_Languages.espnet.asr.asr_utils import add_results_to_json
+    from external.Visual_Speech.espnet.asr.asr_utils import add_results_to_json
     lipreader.model.eval()
     with torch.no_grad():
         enc_feats, _ = lipreader.model.encoder(mouth_sequence, None)
@@ -93,7 +93,7 @@ def predict_text(lipreader, mouth_sequence):
     return transcription.replace("<eos>", "")
 
 def predict_text_deca(lipreader, mouth_sequence):
-    from external.Visual_Speech_Recognition_for_Multiple_Languages.espnet.asr.asr_utils import add_results_to_json
+    from external.Visual_Speech.espnet.asr.asr_utils import add_results_to_json
     lipreader.model.eval()
     with torch.no_grad():
         enc_feats, _ = lipreader.model.encoder(mouth_sequence, None)
