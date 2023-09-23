@@ -16,7 +16,7 @@ echo "Installing conda packages"
 pip install -r deca_model/requirements.txt
 pip install git+https://github.com/facebookresearch/pytorch3d.git@v0.6.2
 
-echo "echo "Download Assets""
+echo "Download Assets"
 bash deca_model/fetch_data.sh
 
 echo "Installation finished"
