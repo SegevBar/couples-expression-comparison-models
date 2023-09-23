@@ -11,10 +11,10 @@ from skimage.transform import estimate_transform, warp, resize, rescale
 import scipy.io
 import collections
 from tqdm import tqdm
-from datasets.data_utils import landmarks_interpolate
-from src.spectre import SPECTRE
-from config import cfg as spectre_cfg
-from src.utils.util import tensor2video
+from spectre_model.datasets.data_utils import landmarks_interpolate
+from spectre_model.src.spectre import SPECTRE
+from spectre_model.config import cfg as spectre_cfg
+from spectre_model.src.utils.util import tensor2video
 import torchvision
 
 def extract_frames(video_path, detect_landmarks=True):
@@ -23,8 +23,8 @@ def extract_frames(video_path, detect_landmarks=True):
     vidcap = cv2.VideoCapture(video_path)
 
     if detect_landmarks is True:
-        from external.Visual_Speech.tracker.face_tracker import FaceTracker
-        from external.Visual_Speech.tracker.utils import get_landmarks
+        from spectre_model.external.Visual_Speech_Recognition_for_Multiple_Languages.tracker.face_tracker import FaceTracker
+        from spectre_model.external.Visual_Speech_Recognition_for_Multiple_Languages.tracker.utils import get_landmarks
         face_tracker = FaceTracker()
 
     imagepath_list = []
@@ -86,7 +86,7 @@ def crop_face(frame, landmarks, scale=1.0):
 def main(args):
     print("Running main on video " + args.input)
     args.crop_face = True
-    spectre_cfg.pretrained_modelpath = "pretrained/spectre_model.tar"
+    spectre_cfg.pretrained_modelpath = "spectre_model/pretrained/spectre_model.tar"
     spectre_cfg.model.use_tex = False
 
     spectre = SPECTRE(spectre_cfg, args.device)
