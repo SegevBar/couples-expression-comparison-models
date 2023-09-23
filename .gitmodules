@@ -8,9 +8,3 @@
 [submodule "Expression_Represantation_Generators/SPECTRE/spectre_model/external/av_hubert"]
 	path = Expression_Represantation_Generators/SPECTRE/spectre_model/external/av_hubert
 	url = https://github.com/facebookresearch/av_hubert.git
-[submodule "Expression_Represantation_Generators/SPECTRE/spectre_model/external/Visual_Speech"]
-	path = Expression_Represantation_Generators/SPECTRE/spectre_model/external/Visual_Speech
-	url = https://github.com/mpc001/Visual_Speech_Recognition_for_Multiple_Languages.git
-[submodule "Expression_Represantation_Generators/SPECTRE/spectre_model/external/Visual_Speech_Recognition"]
-	path = Expression_Represantation_Generators/SPECTRE/spectre_model/external/Visual_Speech_Recognition
-	url = https://github.com/mpc001/Visual_Speech_Recognition_for_Multiple_Languages.git
