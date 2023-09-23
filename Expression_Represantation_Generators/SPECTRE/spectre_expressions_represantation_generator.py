@@ -171,29 +171,27 @@ def main(args):
             for j in range(len(image_paths_chunk)):
                 frame_counter += 1
                 frame = cv2.imread(image_paths_chunk[j])
-                frame = cv2.cvtColor(frame,cv2.COLOR_BGR2RGB)
+                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 kpt = landmarks_chunk[j]
 
-                tform = crop_face(frame,kpt,scale=1.6)
+                tform = crop_face(frame, kpt, scale=1.6)
                 cropped_image = warp(frame, tform.inverse, output_shape=(224, 224))
 
-                images_list.append(cropped_image.transpose(2,0,1))
+                images_list.append(cropped_image.transpose(2, 0, 1))
 
-            images_array = torch.from_numpy(np.array(images_list)).type(dtype = torch.float32).to(args.device) #K,224,224,3
+            frame_counter = frame_counter - 4  # fix padding
+            images_array = torch.from_numpy(np.array(images_list)).type(dtype=torch.float32).to(
+                args.device)  # K,224,224,3
 
             codedict, initial_deca_exp, initial_deca_jaw = spectre.encode(images_array)
             codedict['exp'] = codedict['exp'] + initial_deca_exp
             exp_vector = codedict['exp']
-            print("Tensor size: "+ str(exp_vector.size()))
-            print("Create np array")
-            exp_vector_np = exp_vector.cpu().numpy()
-            print("Append to np array")
-            np.append(exp_array, exp_vector_np)
-            print("Current size: "+ str(np.size(exp_array)))
 
-        print("reshaping array")
+            exp_vector_np = exp_vector.cpu().numpy()
+            exp_vector_np_cropped = exp_vector_np[2:-2, :]
+            exp_array = np.append(exp_array, exp_vector_np_cropped)
+
         exp_array = exp_array.reshape(frame_counter, 50)
-        print("save_to_csv")
         np.savetxt(output_name, exp_array, delimiter=",")
         print("Done, saved to " + output_name)
 
