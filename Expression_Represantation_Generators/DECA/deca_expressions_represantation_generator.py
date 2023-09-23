@@ -20,11 +20,11 @@ from tqdm import tqdm
 import torch
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from decalib.deca import DECA
-from decalib.datasets import datasets
-from decalib.utils import util
-from decalib.utils.config import cfg as deca_cfg
-from decalib.utils.tensor_cropper import transform_points
+from deca_model.decalib.deca import DECA
+from deca_model.decalib.datasets import datasets
+from deca_model.decalib.utils import util
+from deca_model.decalib.utils.config import cfg as deca_cfg
+from deca_model.decalib.utils.tensor_cropper import transform_points
 
 
 def main(args):
@@ -44,7 +44,7 @@ def main(args):
     deca_cfg.model.extract_tex = args.extractTex
     deca = DECA(config=deca_cfg, device=device)
 
-    tempString = ((str(args.input_video)).split("/")[-1]).replace(".mp4", "")
+    tempString = ((str(args.inputpath)).split("/")[-1]).replace(".mp4", "")
     output_name = "Result_" + tempString + ".csv"
 
     exp_array = np.array([])

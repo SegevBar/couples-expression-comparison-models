@@ -26,7 +26,16 @@ cd ../..
 
 echo "Download Assets"
 pip install gdown
-bash quick_install.sh
+echo -e "\nDownloading FLAME..."
+mkdir -p data/FLAME2020/
+wget --post-data "username=$1&password=$2" 'https://download.is.tue.mpg.de/download.php?domain=flame&sfile=FLAME2020.zip&resume=1' -O './FLAME2020.zip' --no-check-certificate --continue
+unzip FLAME2020.zip -d data/FLAME2020/
+rm -rf FLAME2020.zip
+
+echo -e "\nDownload pretrained SPECTRE model..."
+gdown --id 1vmWX6QmXGPnXTXWFgj67oHzOoOmxBh6B
+mkdir -p pretrained/
+mv spectre_model.tar pretrained/
 
 conda install -c conda-forge yacs
 pip install numpy==1.23.1
