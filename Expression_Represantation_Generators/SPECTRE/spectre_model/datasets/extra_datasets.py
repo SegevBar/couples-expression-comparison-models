@@ -6,7 +6,7 @@ def get_datasets_MEAD(config=None):
     import pandas as pd
     questionnaire_list = pd.read_csv("../utils/MEAD_test_set_final.csv")
     test_list = [(x[0],x[1]) for x in zip(questionnaire_list.name,questionnaire_list.text)]
-    landmarks_path = "../Visual_Speech/landmarks/MEAD_images_25fps"
+    landmarks_path = "../Visual_Speech_Recognition_for_Multiple_Languages/landmarks/MEAD_images_25fps"
 
     return None, None, SpectreDataset(test_list, landmarks_path, cfg=config, test=True)
 
@@ -14,7 +14,7 @@ def get_datasets_MEAD(config=None):
 def get_datasets_TCDTIMIT(config=None):
     tcd_root = "/gpu-data3/filby/EAVTTS"
 
-    landmarks_path = "../Visual_Speech/landmarks/TCDTIMIT_images_25fps"
+    landmarks_path = "../Visual_Speech_Recognition_for_Multiple_Languages/landmarks/TCDTIMIT_images_25fps"
 
     root = f"{tcd_root}/TCDTIMIT_preprocessed/TCDSpkrIndepTrainSet.scp"
     files = open(root).readlines()

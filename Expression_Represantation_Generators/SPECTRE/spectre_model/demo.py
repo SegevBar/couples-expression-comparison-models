@@ -23,8 +23,8 @@ def extract_frames(video_path, detect_landmarks=True):
     vidcap = cv2.VideoCapture(video_path)
 
     if detect_landmarks is True:
-        from external.Visual_Speech.tracker.face_tracker import FaceTracker
-        from external.Visual_Speech.tracker.utils import get_landmarks
+        from external.Visual_Speech_Recognition_for_Multiple_Languages.tracker.face_tracker import FaceTracker
+        from external.Visual_Speech_Recognition_for_Multiple_Languages.tracker.utils import get_landmarks
         face_tracker = FaceTracker()
 
     imagepath_list = []

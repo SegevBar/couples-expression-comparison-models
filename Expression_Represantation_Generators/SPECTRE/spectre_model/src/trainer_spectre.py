@@ -17,7 +17,7 @@ from .utils import lossfunc
 from .models.expression_loss import ExpressionLossNet
 import torchvision.transforms.functional as F_v
 import sys
-sys.path.append("external/Visual_Speech")
+sys.path.append("external/Visual_Speech_Recognition_for_Multiple_Languages")
 
 
 
@@ -52,9 +52,9 @@ class Trainer(object):
         self.expression_net.eval()
 
         # ----- initialize lipreader network for lipread loss ----- #
-        from external.Visual_Speech.lipreading.model import Lipreading
+        from external.Visual_Speech_Recognition_for_Multiple_Languages.lipreading.model import Lipreading
 
-        from external.Visual_Speech.dataloader.transform import Compose, Normalize, CenterCrop, \
+        from external.Visual_Speech_Recognition_for_Multiple_Languages.dataloader.transform import Compose, Normalize, CenterCrop, \
             Identity
         from configparser import ConfigParser
         config = ConfigParser()
