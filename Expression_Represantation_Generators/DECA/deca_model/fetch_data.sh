@@ -8,8 +8,6 @@ read -p "Password (FLAME):" password
 username=$(urle $username)
 password=$(urle $password)
 
-mkdir -p ./data
-
 echo -e "\nDownloading FLAME..."
 wget --post-data "username=$username&password=$password" 'https://download.is.tue.mpg.de/download.php?domain=flame&sfile=FLAME2020.zip&resume=1' -O './deca_model/data/FLAME2020.zip' --no-check-certificate --continue
 unzip ./deca_model/data/FLAME2020.zip -d ./deca_model/data/FLAME2020

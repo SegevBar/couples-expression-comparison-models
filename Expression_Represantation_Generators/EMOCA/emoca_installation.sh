@@ -25,8 +25,6 @@ mamba env update -n emoca --file emoca_model/conda-environment_init.yml
 echo "Installing other requirements"
 pip install -r emoca_model/requirements.txt
 pip install Cython==0.29
-
-echo "Making sure Pytorch3D installed correctly"
 pip install git+https://github.com/facebookresearch/pytorch3d.git@v0.6.2
 
 echo "Installing GDL"
