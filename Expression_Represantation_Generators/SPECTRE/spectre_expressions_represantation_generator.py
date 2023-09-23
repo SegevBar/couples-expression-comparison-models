@@ -1,4 +1,11 @@
-# -*- coding: utf-8 -*-
+'''
+@misc{filntisis2022visual,
+  title = {Visual Speech-Aware Perceptual 3D Facial Expression Reconstruction from Videos},
+  author = {Filntisis, Panagiotis P. and Retsinas, George and Paraperas-Papantoniou, Foivos and Katsamanis, Athanasios and Roussos, Anastasios and Maragos, Petros},
+  publisher = {arXiv},
+  year = {2022},
+}
+'''
 
 import os, sys
 import argparse
@@ -193,7 +200,7 @@ def main(args):
 
         exp_array = exp_array.reshape(frame_counter, 50)
         np.savetxt(output_name, exp_array, delimiter=",")
-        print("Done, saved to " + output_name)
+        print("Done")
 
 
 if __name__ == '__main__':

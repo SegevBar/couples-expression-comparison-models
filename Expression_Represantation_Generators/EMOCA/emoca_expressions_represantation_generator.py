@@ -56,7 +56,7 @@ def reconstruct_video(args):
     ## 3) Get the data loadeer with the detected faces
     dl = dm.test_dataloader()
 
-    tempString = ((str(aargs.input_video)).split("/")[-1]).replace(".mp4", "")
+    tempString = ((str(args.input_video)).split("/")[-1]).replace(".mp4", "")
     output_name = "Result_" + tempString + ".csv"
     print("Saving to " + output_name)
 
@@ -65,14 +65,12 @@ def reconstruct_video(args):
     # ## 4) Run the model on the data
     for j, batch in enumerate(auto.tqdm(dl)):
         frame_counter += 1
-        print("current:", j)
+
         current_bs = batch["image"].shape[0]
         img = batch
         vals, visdict = test(emoca, img)
 
-        print("Getting current expression vector")
         exp_vector = vals['expcode'].cpu().numpy()
-        print("appending to numpy array")
         exp_array = np.append(exp_array, exp_vector)
 
         for i in range(current_bs):
@@ -80,9 +78,7 @@ def reconstruct_video(args):
             sample_output_folder = Path(outfolder) /name
             sample_output_folder.mkdir(parents=True, exist_ok=True)
 
-    print("reshaping array")
     exp_array = exp_array.reshape(frame_counter, 50)
-    print("save_to_csv")
     np.savetxt(output_name, exp_array, delimiter=",")
     print("Done")
 

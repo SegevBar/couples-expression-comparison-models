@@ -24,6 +24,7 @@ git lfs pull
 pip install -e .
 cd ../..
 
+echo "Download Assets"
 pip install gdown
 bash quick_install.sh
 
