@@ -1,9 +1,7 @@
 # Couples Expression Comparison Model
 
 
-## Installation 
-
-### Dependencies
+## Installation
 
 0) Install [conda](https://www.anaconda.com/download)
 1) Clone this repo:
@@ -14,7 +12,7 @@ cd couples_expression_comparison_models/
 2) Set your running environment configuration:
    * You will be asked what expression representation generator you would like to use out of the options: EMOCA, SPECTRE, DECA.
    * You will be asked what expressions comparison metrics you would like to use out of the options: Euclidean Average, Cluster Couple Ratio. You can choose more then one.
-   * The settings are saved to config.cfg file.
+   * The settings are saved to **config.cfg** file.
    * You don't have to edit the configuration if the current settings satisfy your needs.
 ```bash
 bash setup.sh
@@ -39,6 +37,10 @@ The program:
 * Creates a csv file for each participant containing the expressions' representation for each video frame.
 * Calculates the comparison metrics by the couples provided in the coupling.csv and presents the results.
 
+### Running from Google Colab
+We provided you a jupiter notebook prepared for running in Google Colab named **exp_compare_demo.ipynb**.\
+Just follow the steps and run the code cell by cell.\
+**Make sure to downlaod the resuls files! They won't be saved in the colab environment.**
 
 
 ## Project Structure 

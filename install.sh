@@ -43,3 +43,7 @@ case $current_exp_rep_generator in
         break
         ;;
 esac
+
+cd ..
+echo ""
+echo "Installation Finished!"
