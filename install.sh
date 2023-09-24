@@ -21,26 +21,21 @@ echo ""
 case $current_exp_rep_generator in
     EMOCA)
         echo "installing EMOCA."
-        cd Expression_Represantation_Generators/EMOCA
+        cd Expression_Representation_Generators/EMOCA
         bash emoca_installation.sh
-        break
         ;;
     SPECTRE)
         echo "installing SPECTRE."
-        cd Expression_Represantation_Generators/SPECTRE
+        cd Expression_Representation_Generators/SPECTRE
         bash spectre_installation.sh $username $password
-
-        break
         ;;
     DECA)
         echo "installing DECA."
-        cd Expression_Represantation_Generators/DECA
+        cd Expression_Representation_Generators/DECA
         bash deca_installation.sh $username $password
-        break
         ;;
     *)
         echo "Invalid choice! Please check the configuration file."
-        break
         ;;
 esac
 
