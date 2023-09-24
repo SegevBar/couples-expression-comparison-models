@@ -1,10 +1,6 @@
-
-[submodule "Expression_Representation_Generators/SPECTRE/spectre_model/external/face_alignment"]
-	path = Expression_Representation_Generators/SPECTRE/spectre_model/external/face_alignment
-	url = https://github.com/hhj1897/face_alignment.git
 [submodule "Expression_Representation_Generators/SPECTRE/spectre_model/external/face_detection"]
 	path = Expression_Representation_Generators/SPECTRE/spectre_model/external/face_detection
 	url = https://github.com/hhj1897/face_detection.git
-[submodule "Expression_Representation_Generators/SPECTRE/spectre_model/external/av_hubert"]
-	path = Expression_Representation_Generators/SPECTRE/spectre_model/external/av_hubert
-	url = https://github.com/facebookresearch/av_hubert.git
+[submodule "Expression_Representation_Generators/SPECTRE/spectre_model/external/face_alignment"]
+	path = Expression_Representation_Generators/SPECTRE/spectre_model/external/face_alignment
+	url = https://github.com/hhj1897/face_alignment.git
