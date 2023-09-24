@@ -5,31 +5,43 @@
 
 ### Dependencies
 
-0) Install [conda](https://docs.conda.io/en/latest/miniconda.html)
-1) Clone this repo 
-2) Run the installation script:
+0) Install [conda](https://www.anaconda.com/download)
+1) Clone this repo:
 ```bash
-bash installation.sh
+git clone --recurse-submodules -j4 https://github.com/SegevBar/couples_expression_comparison_models.git
+cd couples_expression_comparison_models/
 ```
-3) Download the core assets with the following script:
+2) Set your running environment configuration:
+   * You will be asked what expression representation generator you would like to use out of the options: EMOCA, SPECTRE, DECA.
+   * You will be asked what expressions comparison metrics you would like to use out of the options: Euclidean Average, Cluster Couple Ratio. You can choose more then one.
+   * The settings are saved to config.cfg file.
+   * You don't have to edit the configuration if the current settings satisfy your needs.
 ```bash
-bash download_assets.sh
+bash setup.sh
+```
+3) Install Packages and Assets:
+   * This step might take some time
+   * You will be asked to enter your FLAME registration username and password - make sure you are registered [here](https://flame.is.tue.mpg.de/index.html).
+   * Only the packages and assetes relevant to your current configuration will be installed, if you changed the configuration from the last time running on your local machine, you have to perform this step again.
+```bash
+bash install.sh
 ```
 
 ## Usage 
-
-1) run the relevant expression represantation generator: 
+1) Save your data in **couples_expression_comparison_models\Data** directory according to the following format:
+   * Each participant should have a unique folder containing all their videos.
+   * A csv file named **"coupling.csv"** filled with the coupled participants by the name of their folder, an example is provided. 
+2) Run the program script: 
 ```bash
-pyton expressions_represantation_generator.py
+bash run_couples_expression_comparison_model.sh
 ```
-1) run the couples expression comparison matrics:
-```bash
-pyton couples_expression_comparison_matrics.py
-```
+The program:
+* Creates a csv file for each participant containing the expressions' representation for each video frame.
+* Calculates the comparison metrics by the couples provided in the coupling.csv and presents the results.
 
 
 
-## Structure 
+## Project Structure 
 This repo has two subpackages - `expression represantation generator` and `couples expression comparison matrics` 
 
 ### expression represantation generator
