@@ -13,15 +13,14 @@
 # For comments or questions, please email us at deca@tue.mpg.de
 # For commercial licensing contact, please contact ps-license@tuebingen.mpg.de
 
-import os, sys
+import os
 import torch
-from torch.utils.data import Dataset, DataLoader
-import torchvision.transforms as transforms
+from torch.utils.data import Dataset
 import numpy as np
 import cv2
 import scipy
-from skimage.io import imread, imsave
-from skimage.transform import estimate_transform, warp, resize, rescale
+from skimage.io import imread
+from skimage.transform import estimate_transform, warp
 from glob import glob
 import scipy.io
 

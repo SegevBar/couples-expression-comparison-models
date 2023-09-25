@@ -18,12 +18,10 @@ from gdl_apps.EMOCA.utils.io import save_obj, save_images, save_codes, test
 import numpy as np
 import os
 
-from Expression_Representation_Generators.abs_generator import AbstractGenerator
-
 PATH = "EMOCA"
 
 
-class EmocaExpGenerator(AbstractGenerator):
+class EmocaExpGenerator:
     def __init__(self, input_path, device="cuda"):
         self.input_path = input_path
         self.device = device
@@ -50,8 +48,9 @@ class EmocaExpGenerator(AbstractGenerator):
         os.makedirs(self.preprocessed_video_path)
 
     def generate_expressions_representation(self):
+        print("emoca start")
         self.create_preprocessed_video_dir()
-        
+
         # 1) Process the video - extract the frames from video and detected faces
         dm = TestFaceVideoDM(self.input_video, self.preprocessed_video_path, processed_subfolder=self.processed_subfolder,
             batch_size=4, num_workers=4)

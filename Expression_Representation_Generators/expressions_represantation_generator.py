@@ -3,17 +3,6 @@ import csv
 import argparse
 from datetime import datetime
 
-from Expression_Representation_Generators.DECA.deca_expressions_represantation_generator import DecaExpGenerator
-from Expression_Representation_Generators.EMOCA.emoca_expressions_represantation_generator import EmocaExpGenerator
-from Expression_Representation_Generators.SPECTRE.spectre_expressions_represantation_generator import \
-    SpectreExpGenerator
-
-GENERATORS = {
-    "EMOCA" : EmocaExpGenerator,
-    "SPECTRE" : SpectreExpGenerator,
-    "DECA" : DecaExpGenerator
-}
-
 
 def get_absolute_path(dir_type):
     script_path = os.path.abspath(__file__)
@@ -23,14 +12,29 @@ def get_absolute_path(dir_type):
 
 
 def main(args):
+    print(args.typegenerator)
     data_dir = get_absolute_path("Data")
     results_dir = get_absolute_path("Results")
+    print(data_dir, results_dir)
 
     curr_result_name = f"results_{datetime.now().strftime('%Y-%m-%d_%H-%M')}_{args.typegenerator}"
     curr_result_path = os.path.join(results_dir, curr_result_name)
     os.makedirs(curr_result_path, exist_ok=True)
+    print(curr_result_path)
+
+    # init chosen generator
+    if args.typegenerator == "EMOCA":
+        from EMOCA.emoca_expressions_represantation_generator import EmocaExpGenerator
+        generator = EmocaExpGenerator
+    elif args.typegenerator == "SPECTRE":
+        from SPECTRE.spectre_expressions_represantation_generator import SpectreExpGenerator
+        generator = SpectreExpGenerator
+    elif args.typegenerator == "DECA":
+        from DECA.deca_expressions_represantation_generator import DecaExpGenerator
+        generator = DecaExpGenerator
 
     for foldername in os.listdir(data_dir):
+        print(foldername)
         folder_path = os.path.join(data_dir, foldername)
 
         if os.path.isdir(folder_path):
@@ -39,8 +43,7 @@ def main(args):
             for filename in os.listdir(folder_path):
                 if filename.endswith('.mp4'):
                     video_path = os.path.join(folder_path, filename)
-                    generator = GENERATORS[args.typegenerator](video_path)
-                    curr_expressions_representations = generator.generate_expressions_representation()
+                    curr_expressions_representations = generator(video_path).generate_expressions_representation()
                     all_expressions_representations = all_expressions_representations + curr_expressions_representations
 
             # Save outputs to CSV

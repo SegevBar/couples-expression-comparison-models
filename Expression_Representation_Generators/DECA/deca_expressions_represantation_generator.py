@@ -15,17 +15,15 @@ import numpy as np
 from tqdm import tqdm
 import torch
 
-from Expression_Representation_Generators.abs_generator import AbstractGenerator
-
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from deca_model.decalib.deca import DECA
+from DECA.deca_model.decalib.deca import DECA
 from . import rev_datasets
 from deca_model.decalib.utils.config import cfg as deca_cfg
 
 PATH = "DECA"
 
 
-class DecaExpGenerator(AbstractGenerator):
+class DecaExpGenerator:
     def __init__(self, input_path, device="cuda"):
         self.input_path = input_path
         self.device = device
@@ -37,6 +35,7 @@ class DecaExpGenerator(AbstractGenerator):
         self.rasterizer_type = "pytorch3d"  # or "standard"
 
     def generate_expressions_representation(self):
+        print("deca start")
         device = self.device
 
         # load test images
