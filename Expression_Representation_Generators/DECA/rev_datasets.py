@@ -25,11 +25,12 @@ from skimage.transform import estimate_transform, warp, resize, rescale
 from glob import glob
 import scipy.io
 
-from . import detectors
+from Expression_Representation_Generators.DECA.deca_model.decalib.datasets import detectors
 
-def video2sequence(video_path, sample_step=10):
+
+def video2sequence(video_path, output_path, sample_step=10):
     videofolder = os.path.splitext(video_path)[0]
-    os.makedirs(videofolder, exist_ok=True)
+    os.makedirs(output_path, exist_ok=True)
     video_name = os.path.splitext(os.path.split(video_path)[-1])[0]
     vidcap = cv2.VideoCapture(video_path)
     success,image = vidcap.read()
@@ -37,9 +38,7 @@ def video2sequence(video_path, sample_step=10):
     imagepath_list = []
     while success:
         # if count%sample_step == 0:
-        imagename = os.path.join(self.video_name, f'{count:06d}.jpg')
-        imagepath = os.path.join(self.preprocessed_video_path, imagename)
-        imagepath = os.path.join(videofolder, f'{video_name}_frame{count:04d}.jpg')
+        imagepath = os.path.join(output_path, f'{video_name}_frame{count:04d}.jpg')
         cv2.imwrite(imagepath, image)     # save frame as JPEG file
         success,image = vidcap.read()
         count += 1
@@ -48,7 +47,7 @@ def video2sequence(video_path, sample_step=10):
     return imagepath_list
 
 class TestData(Dataset):
-    def __init__(self, testpath, iscrop=True, crop_size=224, scale=1.25, face_detector='fan', sample_step=10):
+    def __init__(self, testpath, output_path, iscrop=True, crop_size=224, scale=1.25, face_detector='fan', sample_step=10):
         '''
             testpath: folder, imagepath_list, image path, video path
         '''
@@ -59,11 +58,12 @@ class TestData(Dataset):
         elif os.path.isfile(testpath) and (testpath[-3:] in ['jpg', 'png', 'bmp']):
             self.imagepath_list = [testpath]
         elif os.path.isfile(testpath) and (testpath[-3:] in ['mp4', 'csv', 'vid', 'ebm']):
-            self.imagepath_list = video2sequence(testpath, sample_step)
+            self.imagepath_list = video2sequence(testpath, output_path, sample_step)
         else:
             print(f'please check the test path: {testpath}')
             exit()
         # print('total {} images'.format(len(self.imagepath_list)))
+        self.output_path = output_path
         self.imagepath_list = sorted(self.imagepath_list)
         self.crop_size = crop_size
         self.scale = scale
