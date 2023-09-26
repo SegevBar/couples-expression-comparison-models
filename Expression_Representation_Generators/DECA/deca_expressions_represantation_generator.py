@@ -18,7 +18,7 @@ import torch
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from DECA.deca_model.decalib.deca import DECA
 from . import rev_datasets
-from deca_model.decalib.utils.config import cfg as deca_cfg
+from DECA.deca_model.decalib.utils.config import cfg as deca_cfg
 
 PATH = "DECA"
 

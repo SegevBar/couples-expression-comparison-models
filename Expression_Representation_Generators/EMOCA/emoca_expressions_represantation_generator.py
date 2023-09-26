@@ -8,13 +8,13 @@
 }
 """
 
-from gdl_apps.EMOCA.utils.load import load_model
-from gdl.datasets.FaceVideoDataModule import TestFaceVideoDM
-import gdl
+from EMOCA.emoca_model.gdl_apps.EMOCA.utils.load import load_model
+from EMOCA.emoca_model.gdl.datasets.FaceVideoDataModule import TestFaceVideoDM
+import EMOCA.emoca_model.gdl
 from pathlib import Path
 from tqdm import auto
 import argparse
-from gdl_apps.EMOCA.utils.io import save_obj, save_images, save_codes, test
+from EMOCA.emoca_model.gdl_apps.EMOCA.utils.io import save_obj, save_images, save_codes, test
 import numpy as np
 import os
 

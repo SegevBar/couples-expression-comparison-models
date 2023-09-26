@@ -17,9 +17,7 @@ def main(args):
     results_dir = get_absolute_path("Results")
     print(data_dir, results_dir)
 
-    curr_result_name = f"results_{datetime.now().strftime('%Y-%m-%d_%H-%M')}_{args.typegenerator}"
-    curr_result_path = os.path.join(results_dir, curr_result_name)
-    os.makedirs(curr_result_path, exist_ok=True)
+    curr_result_path = os.path.join(results_dir, args.resultpath)
     print(curr_result_path)
 
     # init chosen generator
@@ -57,4 +55,5 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='expressions represantation generator')
     parser.add_argument('-t', '--typegenerator', default='SPECTRE', type=str,
                         help='type of expression representation generator')
+    parser.add_argument('-r', '--resultpath', type=str, help='name of csvs result folder')
     main(parser.parse_args())

@@ -16,9 +16,9 @@ from skimage.transform import estimate_transform, warp
 import collections
 from tqdm import tqdm
 
-from spectre_model.datasets.data_utils import landmarks_interpolate
-from spectre_model.src.spectre import SPECTRE
-from spectre_model.config import cfg as spectre_cfg
+from SPECTRE.spectre_model.datasets.data_utils import landmarks_interpolate
+from SPECTRE.spectre_model.src.spectre import SPECTRE
+from SPECTRE.spectre_model.config import cfg as spectre_cfg
 
 PATH = "SPECTRE"
 

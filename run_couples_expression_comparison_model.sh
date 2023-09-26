@@ -21,10 +21,17 @@ else
     exit 1
 fi
 
-echo "Generating expressions representations csvs"
+# Creating a result folder for current run
+current_date=$(date +"%Y%m%d_%H%M")
+result_folder_name="results_${current_date}_${current_exp_rep_generator}"
+mkdir "Results/$folder_name"
+echo "Folder '$result_folder_name' created."
+
+echo "Generating expressions represantations CSVS"
 eval "$(conda shell.bash hook)"
 conda activate $conda_env
-python expressions_represantation_generator.py $current_exp_rep_generator
+echo "activated $conda_env conda env"
+python expressions_represantation_generator.py -t $current_exp_rep_generator -r $result_folder_name
 
 
 # Run Comparisons Metrics
