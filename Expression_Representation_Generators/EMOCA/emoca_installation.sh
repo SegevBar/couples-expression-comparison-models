@@ -1,4 +1,17 @@
 #!/bin/bash
+
+echo "If you wish to use EMOCA, please register at:"
+echo -e '\e]8;;https://emoca.is.tue.mpg.de\ahttps://emoca.is.tue.mpg.de\e]8;;\a'
+while true; do
+    read -p "I have registered and agreed to the license terms at https://emoca.is.tue.mpg.de? (y/n)" yn
+    case $yn in
+        [Yy]* ) break;;
+        [Nn]* ) exit;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
+
+
 echo "Pulling submodules"
 bash emoca_model/pull_submodules.sh
 echo "Installing mamba"
