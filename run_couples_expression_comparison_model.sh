@@ -1,4 +1,5 @@
 #!/bin/bash
+TZ="Asia/Jerusalem" date
 
 # Get project setup from configuration file
 source config.cfg
@@ -31,6 +32,7 @@ echo "Generating expressions represantations CSVS"
 eval "$(conda shell.bash hook)"
 conda activate $conda_env
 echo "activated $conda_env conda env"
+cd Expression_Representation_Generators
 python expressions_represantation_generator.py -t $current_exp_rep_generator -r $result_folder_name
 
 

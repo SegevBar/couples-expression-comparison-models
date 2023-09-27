@@ -2,6 +2,7 @@ import os
 import csv
 import argparse
 from datetime import datetime
+import numpy as np
 
 
 def get_absolute_path(dir_type):
@@ -12,13 +13,10 @@ def get_absolute_path(dir_type):
 
 
 def main(args):
-    print(args.typegenerator)
     data_dir = get_absolute_path("Data")
     results_dir = get_absolute_path("Results")
-    print(data_dir, results_dir)
 
     curr_result_path = os.path.join(results_dir, args.resultpath)
-    print(curr_result_path)
 
     # init chosen generator
     if args.typegenerator == "EMOCA":
@@ -32,23 +30,23 @@ def main(args):
         generator = DecaExpGenerator
 
     for foldername in os.listdir(data_dir):
-        print(foldername)
         folder_path = os.path.join(data_dir, foldername)
 
         if os.path.isdir(folder_path):
-            all_expressions_representations = []
+            all_expressions_representations = np.empty((0, 50))
 
             for filename in os.listdir(folder_path):
                 if filename.endswith('.mp4'):
                     video_path = os.path.join(folder_path, filename)
                     curr_expressions_representations = generator(video_path).generate_expressions_representation()
-                    all_expressions_representations = all_expressions_representations + curr_expressions_representations
+                    all_expressions_representations = np.vstack((all_expressions_representations, curr_expressions_representations))
 
             # Save outputs to CSV
             csv_filename = os.path.join(curr_result_path, foldername + ".csv")
-            with open(csv_filename, mode='w', newline='') as file:
-                writer = csv.writer(file)
-                writer.writerows(all_expressions_representations)
+            np.savetxt(csv_filename, all_expressions_representations, delimiter=',')
+            # with open(csv_filename, mode='w', newline='') as file:
+            #     writer = csv.writer(file)
+            #     writer.writerows(all_expressions_representations)
 
 
 if __name__ == "__main__":
