@@ -8,6 +8,7 @@ def main(args):
     csvs_path = args.resultpath
     coupling_path = os.path.join(csvs_path, 'coupling.csv')
 
+    # load data - expressions representations and coupling
     participants_exp_rep = load_exp_rep(csvs_path)
     couples = get_couples(coupling_path)
 

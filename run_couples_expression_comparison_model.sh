@@ -1,5 +1,5 @@
 #!/bin/bash
-TZ="Asia/Jerusalem" date
+export TZ="Israel"
 
 # Get project setup from configuration file
 source config.cfg
@@ -25,7 +25,7 @@ fi
 # Creating a result folder for current run
 current_date=$(date +"%Y%m%d_%H%M")
 result_folder_name="results_${current_date}_${current_exp_rep_generator}"
-mkdir "Results/$folder_name"
+mkdir "Results/$result_folder_name"
 echo "Folder '$result_folder_name' created."
 
 echo "Generating expressions represantations CSVS"
