@@ -1,10 +1,10 @@
 import torch
 import torch.nn.functional as F
 # from pytorch3d.ops import GraphConv
-from gdl.layers.ChebConvComa import ChebConv_Coma
+from EMOCA.emoca_model.gdl.layers.ChebConvComa import ChebConv_Coma
 from torch_geometric.nn.conv import ChebConv, GCNConv, FeaStConv, SAGEConv, GraphConv, \
     GMMConv, PointConv, XConv, GATConv
-from gdl.layers.Pool import Pool
+from EMOCA.emoca_model.gdl.layers.Pool import Pool
 import copy
 
 

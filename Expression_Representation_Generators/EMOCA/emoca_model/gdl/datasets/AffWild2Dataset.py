@@ -18,9 +18,9 @@ All rights reserved.
 """
 
 
-from gdl.datasets.FaceVideoDataModule import FaceVideoDataModule
-from gdl.datasets.AffectNetDataModule import AffectNetExpressions
-from gdl.datasets.EmotionalImageDataset import EmotionalImageDataset
+from EMOCA.emoca_model.gdl.datasets.FaceVideoDataModule import FaceVideoDataModule
+from EMOCA.emoca_model.gdl.datasets.AffectNetDataModule import AffectNetExpressions
+from EMOCA.emoca_model.gdl.datasets.EmotionalImageDataset import EmotionalImageDataset
 from enum import Enum
 import pickle as pkl
 from pathlib import Path

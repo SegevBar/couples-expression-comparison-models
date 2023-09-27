@@ -32,11 +32,11 @@ from torch.utils.data import DataLoader
 from torchvision.transforms import Resize, Compose, Normalize
 from tqdm import tqdm
 
-# from gdl.datasets.FaceVideoDataset import FaceVideoDataModule
-from gdl.datasets.IO import save_segmentation, save_segmentation_list
-from gdl.datasets.ImageDatasetHelpers import bbox2point, bbpoint_warp
-from gdl.datasets.UnsupervisedImageDataset import UnsupervisedImageDataset
-from gdl.utils.FaceDetector import FAN, MTCNN, save_landmark
+# from EMOCA.emoca_model.gdl.datasets.FaceVideoDataset import FaceVideoDataModule
+from EMOCA.emoca_model.gdl.datasets.IO import save_segmentation, save_segmentation_list
+from EMOCA.emoca_model.gdl.datasets.ImageDatasetHelpers import bbox2point, bbpoint_warp
+from EMOCA.emoca_model.gdl.datasets.UnsupervisedImageDataset import UnsupervisedImageDataset
+from EMOCA.emoca_model.gdl.utils.FaceDetector import FAN, MTCNN, save_landmark
 # try:
 #     from gdl.utils.TFabRecLandmarkDetector import TFabRec
 # except ImportError:

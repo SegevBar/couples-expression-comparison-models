@@ -32,14 +32,14 @@ import hickle as hkl
 from tqdm import tqdm, auto
 # import subprocess
 from torchvision.transforms import Resize, Compose
-import gdl
-from gdl.datasets.ImageTestDataset import TestData
-from gdl.datasets.FaceDataModuleBase import FaceDataModuleBase
-from gdl.datasets.ImageDatasetHelpers import point2bbox, bbpoint_warp
-from gdl.datasets.UnsupervisedImageDataset import UnsupervisedImageDataset
+import EMOCA.emoca_model.gdl
+from EMOCA.emoca_model.gdl.datasets.ImageTestDataset import TestData
+from EMOCA.emoca_model.gdl.datasets.FaceDataModuleBase import FaceDataModuleBase
+from EMOCA.emoca_model.gdl.datasets.ImageDatasetHelpers import point2bbox, bbpoint_warp
+from EMOCA.emoca_model.gdl.datasets.UnsupervisedImageDataset import UnsupervisedImageDataset
 from facenet_pytorch import InceptionResnetV1
 from collections import OrderedDict
-from gdl.datasets.IO import save_emotion, save_segmentation_list, save_reconstruction_list, save_emotion_list
+from EMOCA.emoca_model.gdl.datasets.IO import save_emotion, save_segmentation_list, save_reconstruction_list, save_emotion_list
 from PIL import Image, ImageDraw, ImageFont
 import cv2
 from skimage.io import imread
@@ -47,10 +47,10 @@ from skvideo.io import vreader, vread
 import skvideo.io
 import torch.nn.functional as F
 
-from gdl.datasets.VideoFaceDetectionDataset import VideoFaceDetectionDataset
+from EMOCA.emoca_model.gdl.datasets.VideoFaceDetectionDataset import VideoFaceDetectionDataset
 import types
 
-from gdl.utils.FaceDetector import save_landmark, save_landmark_v2
+from EMOCA.emoca_model.gdl.utils.FaceDetector import save_landmark, save_landmark_v2
 
 # from memory_profiler import profile
 
@@ -593,7 +593,7 @@ class FaceVideoDataModule(FaceDataModuleBase):
 
 
     def _get_emotion_net(self, device):
-        from gdl.layers.losses.EmonetLoader import get_emonet
+        from EMOCA.emoca_model.gdl.layers.losses.EmonetLoader import get_emonet
 
         net = get_emonet()
         net = net.to(device)
@@ -739,7 +739,7 @@ class FaceVideoDataModule(FaceDataModuleBase):
 
 
     def _get_emonet(self, device=None):
-        from gdl.utils.other import get_path_to_externals
+        from EMOCA.emoca_model.gdl.utils.other import get_path_to_externals
         device = device or torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
         path_to_emonet = get_path_to_externals() / "emonet"
         if not(str(path_to_emonet) in sys.path  or str(path_to_emonet.absolute()) in sys.path):
@@ -840,7 +840,7 @@ class FaceVideoDataModule(FaceDataModuleBase):
             video_path = self.root_dir / self.video_list[sequence_id]
             landmark_file = self._get_path_to_sequence_landmarks(sequence_id) 
             
-            from gdl.datasets.VideoFaceDetectionDataset import VideoFaceDetectionDataset
+            from EMOCA.emoca_model.gdl.datasets.VideoFaceDetectionDataset import VideoFaceDetectionDataset
             dataset = VideoFaceDetectionDataset(video_path, landmark_file, output_im_range=255)
         else:
             dataset = UnsupervisedImageDataset(detections_fnames)
@@ -915,7 +915,7 @@ class FaceVideoDataModule(FaceDataModuleBase):
         if rec_method == 'resnet50':
             if hasattr(self, '_emo_resnet') and self._emo_resnet is not None: 
                 return self._emo_resnet.to(device)
-            from gdl.models.temporal.Preprocessors import EmotionRecognitionPreprocessor
+            from EMOCA.emoca_model.gdl.models.temporal.Preprocessors import EmotionRecognitionPreprocessor
             from munch import Munch
             cfg = Munch()
             cfg.model_name = "ResNet50"
@@ -932,7 +932,7 @@ class FaceVideoDataModule(FaceDataModuleBase):
         if rec_method == "emoca":
             if hasattr(self, '_emoca') and self._emoca is not None: 
                 return self._emoca.to(device)
-            from gdl.models.temporal.Preprocessors import EmocaPreprocessor
+            from EMOCA.emoca_model.gdl.models.temporal.Preprocessors import EmocaPreprocessor
             from munch import Munch
             cfg = Munch()
             cfg.with_global_pose = True
@@ -952,7 +952,7 @@ class FaceVideoDataModule(FaceDataModuleBase):
         elif rec_method == "spectre": 
             if hasattr(self, '_spectre') and self._spectre is not None: 
                 return self._spectre.to(device)
-            from gdl.models.temporal.external.SpectrePreprocessor import SpectrePreprocessor
+            from EMOCA.emoca_model.gdl.models.temporal.external.SpectrePreprocessor import SpectrePreprocessor
             from munch import Munch
             cfg = Munch()
             cfg.return_vis = False
@@ -993,10 +993,10 @@ class FaceVideoDataModule(FaceDataModuleBase):
         elif rec_method == "emoca":
             checkpoint_mode = 'best'
             mode = "test"
-            from gdl.models.IO import get_checkpoint_with_kwargs
+            from EMOCA.emoca_model.gdl.models.IO import get_checkpoint_with_kwargs
             from omegaconf import OmegaConf
             model_path = "/is/cluster/work/rdanecek/emoca/finetune_deca/2021_11_13_03-43-40_4753326650554236352_ExpDECA_Affec_clone_NoRing_EmoC_F2_DeSeggt_BlackC_Aug_early"
-            # model_path = Path(gdl.__file__).parents[1] / "assets" / "EMOCA" / "models" / "EMOCA"
+            # model_path = Path(EMOCA.emoca_model.gdl.__file__).parents[1] / "assets" / "EMOCA" / "models" / "EMOCA"
             cfg = OmegaConf.load(Path(model_path) / "cfg.yaml")
             stage = 'detail'
             cfg = cfg[stage]
@@ -1008,7 +1008,7 @@ class FaceVideoDataModule(FaceDataModuleBase):
             # cfg_pretrain_.model.deca_class = cfg_coarse.model.deca_class
             # checkpoint_kwargs["config"]["model"]["deca_class"] = cfg_coarse.model.deca_class
             # load from configs
-            from gdl.models.DECA import instantiate_deca
+            from EMOCA.emoca_model.gdl.models.DECA import instantiate_deca
             deca_checkpoint_kwargs = {
                 "model_params": checkpoint_kwargs["config"]["model"],
                 "learning_params": checkpoint_kwargs["config"]["learning"],
@@ -1016,13 +1016,13 @@ class FaceVideoDataModule(FaceDataModuleBase):
                 "stage_name": "train",
             }
 
-            from gdl_apps.EMOCA.utils.load import load_model 
+            from EMOCA.emoca_model.gdl_apps.EMOCA.utils.load import load_model
 
             deca = instantiate_deca(cfg, mode, "",  checkpoint, deca_checkpoint_kwargs )
             deca.to(device)
             deca.deca.config.detail_constrain_type = 'none'
 
-            # path_to_models = Path(gdl.__file__).parents[1] / "assets/EMOCA/models
+            # path_to_models = Path(EMOCA.emoca_model.gdl.__file__).parents[1] / "assets/EMOCA/models
             # model_name = "EMOCA"
             # mode = "detail"
             # deca, conf = load_model(path_to_models, model_name, mode)
@@ -1051,7 +1051,7 @@ class FaceVideoDataModule(FaceDataModuleBase):
             # initialize(config_path="../emoca_conf", job_name="test_face_model")
             # conf = compose(config_name=default, overrides=overrides)
 
-            from gdl.models.external.Deep3DFace import Deep3DFaceModule
+            from EMOCA.emoca_model.gdl.models.external.Deep3DFace import Deep3DFaceModule
             from omegaconf import DictConfig
 
             model_cfg = {

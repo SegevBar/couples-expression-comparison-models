@@ -18,9 +18,9 @@ All rights reserved.
 """
 
 
-from gdl_apps.EMOCA.utils.load import load_model
-from gdl.datasets.ImageTestDataset import TestData
-import gdl
+from EMOCA.emoca_model.gdl_apps.EMOCA.utils.load import load_model
+from EMOCA.emoca_model.gdl.datasets.ImageTestDataset import TestData
+import EMOCA.emoca_model.gdl
 import numpy as np
 import os
 import torch
@@ -28,16 +28,16 @@ from skimage.io import imsave
 from pathlib import Path
 from tqdm import auto
 import argparse
-from gdl_apps.EMOCA.utils.io import save_obj, save_images, save_codes, test
+from EMOCA.emoca_model.gdl_apps.EMOCA.utils.io import save_obj, save_images, save_codes, test
 
 
 def main():
     parser = argparse.ArgumentParser()
     # add the input folder arg 
-    parser.add_argument('--input_folder', type=str, default= str(Path(gdl.__file__).parents[1] / "assets/data/EMOCA_test_example_data/images/affectnet_test_examples"))
+    parser.add_argument('--input_folder', type=str, default= str(Path(EMOCA.emoca_model.gdl.__file__).parents[1] / "assets/data/EMOCA_test_example_data/images/affectnet_test_examples"))
     parser.add_argument('--output_folder', type=str, default="image_output", help="Output folder to save the results to.")
     parser.add_argument('--model_name', type=str, default='EMOCA_v2_lr_mse_20', help='Name of the model to use.')
-    parser.add_argument('--path_to_models', type=str, default=str(Path(gdl.__file__).parents[1] / "assets/EMOCA/models"))
+    parser.add_argument('--path_to_models', type=str, default=str(Path(EMOCA.emoca_model.gdl.__file__).parents[1] / "assets/EMOCA/models"))
     parser.add_argument('--save_images', type=bool, default=True, help="If true, output images will be saved")
     parser.add_argument('--save_codes', type=bool, default=False, help="If true, output FLAME values for shape, expression, jaw pose will be saved")
     parser.add_argument('--save_mesh', type=bool, default=False, help="If true, output meshes will be saved")

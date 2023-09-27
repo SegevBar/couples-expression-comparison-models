@@ -667,7 +667,7 @@ class EmoSpeechDataModule(pl.LightningDataModule):
         print("FLAME unposing finished")
 
     def _raw_audio_to_deepspeech(self, audio_scaler=32500):
-        from gdl.utils.DeepSpeechConverter import DeepSpeechConverter
+        from EMOCA.emoca_model.gdl.utils.DeepSpeechConverter import DeepSpeechConverter
         ah = DeepSpeechConverter('/home/rdanecek/Workspace/Repos/voca/ds_graph/output_graph.pb')
         self.ds_array = np.memmap(self.ds_array_path, dtype='float32', mode=memmap_mode(self.ds_array_path),
                                          shape=(self.num_samples, self.temporal_window, self.ds_alphabet))

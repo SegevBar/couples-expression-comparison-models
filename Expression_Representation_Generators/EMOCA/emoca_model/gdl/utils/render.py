@@ -2,7 +2,7 @@ import os
 import torch
 import numpy as np
 
-from gdl.utils.mesh import load_mesh
+from EMOCA.emoca_model.gdl.utils.mesh import load_mesh
 
 # Data structures and functions for rendering
 from pytorch3d.structures import Meshes, Textures

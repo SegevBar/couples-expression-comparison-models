@@ -18,7 +18,7 @@ All rights reserved.
 """
 
 
-from gdl.utils.condor import execute_on_cluster
+from EMOCA.emoca_model.gdl.utils.condor import execute_on_cluster
 from pathlib import Path
 import deca_dataset_analysis
 import datetime

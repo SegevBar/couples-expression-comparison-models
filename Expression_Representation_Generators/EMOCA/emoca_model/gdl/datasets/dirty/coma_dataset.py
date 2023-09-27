@@ -2,11 +2,11 @@ import numpy as np
 import torch
 from pytorch3d.io import load_ply, save_ply
 from torch_geometric.data import Data
-from gdl.utils.mesh_operations import get_vert_connectivity
+from EMOCA.emoca_model.gdl.utils.mesh_operations import get_vert_connectivity
 import glob, os, sys
 from tqdm import tqdm
 from torch_geometric.data import Dataset, InMemoryDataset
-from gdl.transforms.normalize import NormalizeGeometricData
+from EMOCA.emoca_model.gdl.transforms.normalize import NormalizeGeometricData
 
 
 class ComaDataset(InMemoryDataset):
@@ -39,7 +39,7 @@ class ComaDataset(InMemoryDataset):
 
         # backwards compatiblity hack
         if not os.path.exists(pre_transform_path) and os.path.exists(data_path):
-            from gdl.transforms.normalize import NormalizeGeometricData
+            from EMOCA.emoca_model.gdl.transforms.normalize import NormalizeGeometricData
             norm_path = self.processed_paths[3]
             norm_dict = torch.load(norm_path)
             self.mean, self.std = norm_dict['mean'], norm_dict['std']
@@ -58,7 +58,7 @@ class ComaDataset(InMemoryDataset):
             pre_transform = torch.load(pre_transform_path)
         else:
             # backwards compatiblity hack, remove in the future
-            from gdl.transforms.normalize import NormalizeGeometricData
+            from EMOCA.emoca_model.gdl.transforms.normalize import NormalizeGeometricData
             pre_transform = NormalizeGeometricData(self.mean, self.std)
             torch.save(self.pre_transform, self.processed_paths[4])
 

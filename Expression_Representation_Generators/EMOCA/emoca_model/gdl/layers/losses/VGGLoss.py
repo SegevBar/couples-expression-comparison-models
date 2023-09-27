@@ -10,7 +10,7 @@ Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 
 import torch
 import torch.nn as nn
-from gdl.models.VGG import VGG19
+from EMOCA.emoca_model.gdl.models.VGG import VGG19
 
 try:
     from tqdm import tqdm

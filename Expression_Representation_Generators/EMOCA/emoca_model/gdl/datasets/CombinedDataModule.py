@@ -218,8 +218,8 @@ class CombinedDataModule(LightningDataModule):
 
 
 if __name__ == '__main__':
-    from gdl.datasets.AffectNetDataModule import AffectNetEmoNetSplitModuleValTest
-    from gdl.datasets.DecaDataModule import DecaDataModule
+    from EMOCA.emoca_model.gdl.datasets.AffectNetDataModule import AffectNetEmoNetSplitModuleValTest
+    from EMOCA.emoca_model.gdl.datasets.DecaDataModule import DecaDataModule
     from omegaconf import OmegaConf, DictConfig
     import yaml
     from pathlib import Path

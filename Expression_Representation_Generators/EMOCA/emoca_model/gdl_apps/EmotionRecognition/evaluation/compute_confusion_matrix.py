@@ -21,21 +21,21 @@ All rights reserved.
 import os, sys
 from pathlib import Path
 from omegaconf import DictConfig, OmegaConf
-from gdl.datasets.AffectNetDataModule import AffectNetDataModule, AffectNetExpressions
-from gdl_apps.EMOCA.train_expdeca import prepare_data, create_logger
-from gdl_apps.EMOCA.train_deca_modular import get_checkpoint
-from gdl.models.IO import locate_checkpoint, get_checkpoint_with_kwargs
+from EMOCA.emoca_model.gdl.datasets.AffectNetDataModule import AffectNetDataModule, AffectNetExpressions
+from EMOCA.emoca_model.gdl_apps.EMOCA.train_expdeca import prepare_data, create_logger
+from EMOCA.emoca_model.gdl_apps.EMOCA.train_deca_modular import get_checkpoint
+from EMOCA.emoca_model.gdl.models.IO import locate_checkpoint, get_checkpoint_with_kwargs
 
-from gdl.models.EmoDECA import EmoDECA
+from EMOCA.emoca_model.gdl.models.EmoDECA import EmoDECA
 try:
-    from gdl.models.EmoNetModule import EmoNetModule
+    from EMOCA.emoca_model.gdl.models.EmoNetModule import EmoNetModule
 except ImportError as e: 
     print("Skipping EmoNetModule because EmoNet it is not installed.  Make sure you pull the repository with submodules to enable EmoNet.")
-from gdl.utils.other import class_from_str
+from EMOCA.emoca_model.gdl.utils.other import class_from_str
 import datetime
 from pytorch_lightning import Trainer
 from pytorch_lightning.callbacks import ModelCheckpoint, EarlyStopping
-from gdl_apps.EMOCA.interactive_deca_decoder import hack_paths
+from EMOCA.emoca_model.gdl_apps.EMOCA.interactive_deca_decoder import hack_paths
 import torch
 import wandb
 from tqdm import auto

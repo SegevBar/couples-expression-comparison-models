@@ -29,9 +29,9 @@ import torch.nn.functional as F
 from captum.insights import AttributionVisualizer, Batch
 from captum.insights.attr_vis.features import ImageFeature
 
-from gdl.datasets.AffectNetDataModule import AffectNetExpressions, AffectNetDataModule
-from gdl.models.EmotionRecognitionModuleBase import EmotionRecognitionBaseModule
-from gdl.layers.losses.emotion_loss_loader import emo_network_from_path
+from EMOCA.emoca_model.gdl.datasets.AffectNetDataModule import AffectNetExpressions, AffectNetDataModule
+from EMOCA.emoca_model.gdl.models.EmotionRecognitionModuleBase import EmotionRecognitionBaseModule
+from EMOCA.emoca_model.gdl.layers.losses.emotion_loss_loader import emo_network_from_path
 
 
 def get_classes():

@@ -22,10 +22,10 @@ import sys, os
 from pathlib import Path
 
 import torch
-from gdl.models.EmotionRecognitionModuleBase import EmotionRecognitionBaseModule
-from gdl.models.external.Deep3DFace import Deep3DFaceWrapper
-from gdl.models.MLP import MLP
-from gdl.utils.other import class_from_str
+from EMOCA.emoca_model.gdl.models.EmotionRecognitionModuleBase import EmotionRecognitionBaseModule
+from EMOCA.emoca_model.gdl.models.external.Deep3DFace import Deep3DFaceWrapper
+from EMOCA.emoca_model.gdl.models.MLP import MLP
+from EMOCA.emoca_model.gdl.utils.other import class_from_str
 from torch.nn import BatchNorm1d, InstanceNorm1d
 
 

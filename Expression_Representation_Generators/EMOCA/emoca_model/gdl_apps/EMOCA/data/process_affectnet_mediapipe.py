@@ -10,7 +10,7 @@ else:
     sid = 0
 
 
-from gdl.datasets.AffectNetDataModule import AffectNetDataModule, AffectNetEmoNetSplitModule
+from EMOCA.emoca_model.gdl.datasets.AffectNetDataModule import AffectNetDataModule, AffectNetEmoNetSplitModule
 
 
 
@@ -33,7 +33,7 @@ All rights reserved.
 # For commercial licensing contact, please contact ps-license@tuebingen.mpg.de
 """
 import sys
-from gdl.datasets.AffectNetDataModule import AffectNetDataModule
+from EMOCA.emoca_model.gdl.datasets.AffectNetDataModule import AffectNetDataModule
 
 
 def main(): 

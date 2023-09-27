@@ -1,8 +1,8 @@
-from gdl.models.DECA import DecaModule
-from gdl.models.IO import locate_checkpoint
+from EMOCA.emoca_model.gdl.models.DECA import DecaModule
+from EMOCA.emoca_model.gdl.models.IO import locate_checkpoint
 from omegaconf import OmegaConf, DictConfig
 from pathlib import Path
-from gdl_apps.EMOCA.training.test_and_finetune_deca import prepare_data
+from EMOCA.emoca_model.gdl_apps.EMOCA.training.test_and_finetune_deca import prepare_data
 import torch
 import matplotlib.pyplot as plt
 from tqdm import auto

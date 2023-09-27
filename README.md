@@ -38,8 +38,10 @@ The program:
 * Calculates the comparison metrics by the couples provided in the coupling.csv and presents the results.
 
 ### Running from Google Colab
-We provided you a jupiter notebook prepared for running in Google Colab named **exp_compare_demo.ipynb**.\
-Just follow the steps and run the code cell by cell.\
+We provided you a jupiter notebook prepared for running in Google Colab named **exp_compare_demo.ipynb**.
+1) Change the runtime type of the notebook to use **GPU** as this project uses cuda.
+2) Then, follow the steps and run the code cell by cell.
+
 **Make sure to downlaod the resuls files! They won't be saved in the colab environment.**
 
 

@@ -24,7 +24,7 @@ import numpy as np
 import torch.nn as nn
 import torch
 import torch.nn.functional as F
-import gdl.models.ResNet as resnet
+import EMOCA.emoca_model.gdl.models.ResNet as resnet
 
 try:
     from .Swin import create_swin_backbone, swin_cfg_from_name

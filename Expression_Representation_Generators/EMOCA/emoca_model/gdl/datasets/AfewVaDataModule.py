@@ -30,19 +30,19 @@ import pandas as pd
 import pickle as pkl
 from skimage.io import imread, imsave
 from skimage.transform import resize, rescale
-from gdl.datasets.IO import load_segmentation, process_segmentation, load_emotion, save_emotion
-from gdl.utils.image import numpy_image_to_torch
-from gdl.transforms.keypoints import KeypointNormalization
+from EMOCA.emoca_model.gdl.datasets.IO import load_segmentation, process_segmentation, load_emotion, save_emotion
+from EMOCA.emoca_model.gdl.utils.image import numpy_image_to_torch
+from EMOCA.emoca_model.gdl.transforms.keypoints import KeypointNormalization
 import imgaug
-from gdl.datasets.FaceDataModuleBase import FaceDataModuleBase
-from gdl.datasets.ImageDatasetHelpers import bbox2point, bbpoint_warp
-from gdl.datasets.EmotionalImageDataset import EmotionalImageDatasetBase
-from gdl.datasets.UnsupervisedImageDataset import UnsupervisedImageDataset
-from gdl.utils.FaceDetector import save_landmark, load_landmark
+from EMOCA.emoca_model.gdl.datasets.FaceDataModuleBase import FaceDataModuleBase
+from EMOCA.emoca_model.gdl.datasets.ImageDatasetHelpers import bbox2point, bbpoint_warp
+from EMOCA.emoca_model.gdl.datasets.EmotionalImageDataset import EmotionalImageDatasetBase
+from EMOCA.emoca_model.gdl.datasets.UnsupervisedImageDataset import UnsupervisedImageDataset
+from EMOCA.emoca_model.gdl.utils.FaceDetector import save_landmark, load_landmark
 from tqdm import auto
 import traceback
 from torch.utils.data.dataloader import DataLoader
-from gdl.transforms.imgaug import create_image_augmenter
+from EMOCA.emoca_model.gdl.transforms.imgaug import create_image_augmenter
 from torchvision.transforms import Resize, Compose
 from sklearn.neighbors import NearestNeighbors
 from torch.utils.data._utils.collate import default_collate
@@ -51,7 +51,7 @@ from collections import OrderedDict
 from munch import Munch
 import json
 import bisect
-from gdl.utils.other import class_from_str
+from EMOCA.emoca_model.gdl.utils.other import class_from_str
 import warnings
 warnings.filterwarnings('ignore')
 

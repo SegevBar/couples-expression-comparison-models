@@ -18,10 +18,10 @@ All rights reserved.
 """
 
 
-from gdl_apps.EMOCA.training.test_and_finetune_deca import single_stage_deca_pass
-from gdl_apps.EMOCA.utils.load import load_model
+from EMOCA.emoca_model.gdl_apps.EMOCA.training.test_and_finetune_deca import single_stage_deca_pass
+from EMOCA.emoca_model.gdl_apps.EMOCA.utils.load import load_model
 import sys
-from gdl.datasets.AffectNetDataModule import AffectNetTestModule
+from EMOCA.emoca_model.gdl.datasets.AffectNetDataModule import AffectNetTestModule
 
 
 def data_preparation_function(cfg,path_to_affectnet, path_to_processed_affectnet):
