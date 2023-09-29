@@ -21,7 +21,7 @@ All rights reserved.
 import torch
 import matplotlib.pyplot as plt
 
-from gdl_apps.EMOCA.utils.load import load_deca_and_data
+from EMOCA.emoca_model.gdl_apps.EMOCA.utils.load import load_deca_and_data
 
 
 def test(deca, dm=None, image_index = None, values = None, batch=None):

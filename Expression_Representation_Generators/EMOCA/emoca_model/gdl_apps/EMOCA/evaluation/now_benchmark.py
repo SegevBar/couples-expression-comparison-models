@@ -20,10 +20,10 @@ All rights reserved.
 
 import os, sys
 from pathlib import Path
-from gdl.datasets.DecaDataModule import NoWVal, NoWTest
+from EMOCA.emoca_model.gdl.datasets.DecaDataModule import NoWVal, NoWTest
 from omegaconf import OmegaConf, DictConfig
-from gdl.models.DECA import DecaModule, DECA
-from gdl.models.IO import locate_checkpoint
+from EMOCA.emoca_model.gdl.models.DECA import DecaModule, DECA
+from EMOCA.emoca_model.gdl.models.IO import locate_checkpoint
 from interactive_deca_decoder import hack_paths, load_deca
 import numpy as np
 import torch
@@ -31,8 +31,8 @@ from skimage.io import imread, imsave
 from skimage.transform import estimate_transform, warp, resize, rescale
 import matplotlib.pyplot as plt
 from tqdm import auto
-from gdl.utils.DecaUtils import write_obj
-from gdl.models.DECA import instantiate_deca
+from EMOCA.emoca_model.gdl.utils.DecaUtils import write_obj
+from EMOCA.emoca_model.gdl.models.DECA import instantiate_deca
 
 # import NoW related stuff
 path_to_now = str(Path(__file__).absolute().parents[3] / "now_evaluation")

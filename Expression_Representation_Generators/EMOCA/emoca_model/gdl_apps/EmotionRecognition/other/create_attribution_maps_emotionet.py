@@ -46,15 +46,15 @@ from captum.attr import visualization as viz
 
 from matplotlib.colors import LinearSegmentedColormap
 
-from gdl.datasets.EmotioNetDataModule import EmotioNetDataModule, EmotioNet, ActionUnitTypes
-from gdl.models.EmotionRecognitionModuleBase import EmotionRecognitionBaseModule
-from gdl.layers.losses.emotion_loss_loader import emo_network_from_path
-from gdl.models.DECA import DECA, DecaModule
-from gdl.models.IO import locate_checkpoint
-from gdl_apps.EMOCA.load_data import hack_paths
+from EMOCA.emoca_model.gdl.datasets.EmotioNetDataModule import EmotioNetDataModule, EmotioNet, ActionUnitTypes
+from EMOCA.emoca_model.gdl.models.EmotionRecognitionModuleBase import EmotionRecognitionBaseModule
+from EMOCA.emoca_model.gdl.layers.losses.emotion_loss_loader import emo_network_from_path
+from EMOCA.emoca_model.gdl.models.DECA import DECA, DecaModule
+from EMOCA.emoca_model.gdl.models.IO import locate_checkpoint
+from EMOCA.emoca_model.gdl_apps.EMOCA.load_data import hack_paths
 
 from tqdm.auto import tqdm
-from gdl_apps.EMOCA.training.test_and_finetune_deca import create_logger
+from EMOCA.emoca_model.gdl_apps.EMOCA.training.test_and_finetune_deca import create_logger
 
 from omegaconf import OmegaConf, DictConfig
 from pathlib import Path

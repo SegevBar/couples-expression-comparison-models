@@ -1,15 +1,15 @@
-from gdl_apps.EMOCA.utils.load import load_model
-from gdl.utils.FaceDetector import FAN
-from gdl.datasets.FaceVideoDataModule import TestFaceVideoDM
-import gdl
+from EMOCA.emoca_model.gdl_apps.EMOCA.utils.load import load_model
+from EMOCA.emoca_model.gdl.utils.FaceDetector import FAN
+from EMOCA.emoca_model.gdl.datasets.FaceVideoDataModule import TestFaceVideoDM
+import EMOCA.emoca_model.gdl
 import matplotlib.pyplot as plt
-import gdl.utils.DecaUtils as util
+import EMOCA.emoca_model.gdl.utils.DecaUtils as util
 import numpy as np
 import os
 import torch
 from skimage.io import imsave
 from pathlib import Path
-from gdl.utils.lightning_logging import _fix_image
+from EMOCA.emoca_model.gdl.utils.lightning_logging import _fix_image
 
 
 def torch_img_to_np(img):
@@ -19,7 +19,7 @@ def torch_img_to_np(img):
 def save_obj(emoca, filename, opdict, i=0):
     # dense_template_path = '/home/rdanecek/Workspace/Repos/DECA/data/texture_data_256.npy'
     # dense_template_path = '/is/cluster/rdanecek/workspace/repos/DECA/data/texture_data_256.npy'
-    dense_template_path = Path(gdl.__file__).parents[1] / 'assets' / "DECA" / "data" / 'texture_data_256.npy'
+    dense_template_path = Path(EMOCA.emoca_model.gdl.__file__).parents[1] / 'assets' / "DECA" / "data" / 'texture_data_256.npy'
     dense_template = np.load(dense_template_path, allow_pickle=True, encoding='latin1').item()
     vertices = opdict['verts'][i].detach().cpu().numpy()
     faces = emoca.deca.render.faces[0].detach().cpu().numpy()

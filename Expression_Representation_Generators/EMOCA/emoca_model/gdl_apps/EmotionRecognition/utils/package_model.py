@@ -25,8 +25,8 @@ from typing import overload
 import distutils.dir_util
 from omegaconf import OmegaConf, DictConfig
 import shutil
-from gdl.models.IO import locate_checkpoint
-from gdl.layers.losses.emotion_loss_loader import emo_network_from_path
+from EMOCA.emoca_model.gdl.models.IO import locate_checkpoint
+from EMOCA.emoca_model.gdl.layers.losses.emotion_loss_loader import emo_network_from_path
 
 
 def package_model(input_dir, output_dir, asset_dir, overwrite=False, remove_bfm_textures=True):

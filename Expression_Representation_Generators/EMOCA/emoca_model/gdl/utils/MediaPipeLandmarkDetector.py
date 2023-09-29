@@ -1,9 +1,9 @@
 import numpy as np
 # import torch
 import pickle as pkl
-from gdl.utils.FaceDetector import FaceDetector
+from EMOCA.emoca_model.gdl.utils.FaceDetector import FaceDetector
 import os, sys
-# from gdl.utils.other import get_path_to_externals 
+# from EMOCA.emoca_model.gdl.utils.other import get_path_to_externals
 from pathlib import Path
 
 import mediapipe as mp

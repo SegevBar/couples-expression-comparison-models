@@ -11,9 +11,6 @@ while true; do
     esac
 done
 
-
-echo "Pulling submodules"
-bash emoca_model/pull_submodules.sh
 echo "Installing mamba"
 conda install mamba -n base -c conda-forge
 if ! command -v mamba &> /dev/null

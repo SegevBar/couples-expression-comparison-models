@@ -5,8 +5,8 @@ from typing import overload
 import distutils.dir_util
 from omegaconf import OmegaConf, DictConfig
 import shutil
-from gdl_apps.EMOCA.utils.load import load_model, replace_asset_dirs
-from gdl.models.IO import locate_checkpoint
+from EMOCA.emoca_model.gdl_apps.EMOCA.utils.load import load_model, replace_asset_dirs
+from EMOCA.emoca_model.gdl.models.IO import locate_checkpoint
 
 def package_model(input_dir, output_dir, asset_dir, overwrite=False, remove_bfm_textures=False):
     input_dir = Path(input_dir) 

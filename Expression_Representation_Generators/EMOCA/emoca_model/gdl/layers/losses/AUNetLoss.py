@@ -1,14 +1,14 @@
 # import copy
 #
 # import torch
-# from gdl.layers.losses.EmonetLoader import get_emonet
+# from EMOCA.emoca_model.gdl.layers.losses.EmonetLoader import get_emonet
 # from pathlib import Path
 # import torch.nn.functional as F
-# from gdl.models.EmoNetModule import EmoNetModule
-# from gdl.models.EmoSwinModule import EmoSwinModule
-# from gdl.models.EmoCnnModule import EmoCnnModule
-# from gdl.models.IO import get_checkpoint_with_kwargs
-# from gdl.utils.other import class_from_str
+# from EMOCA.emoca_model.gdl.models.EmoNetModule import EmoNetModule
+# from EMOCA.emoca_model.gdl.models.EmoSwinModule import EmoSwinModule
+# from EMOCA.emoca_model.gdl.models.EmoCnnModule import EmoCnnModule
+# from EMOCA.emoca_model.gdl.models.IO import get_checkpoint_with_kwargs
+# from EMOCA.emoca_model.gdl.utils.other import class_from_str
 # import sys
 #
 #

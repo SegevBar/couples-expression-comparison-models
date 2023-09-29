@@ -18,8 +18,8 @@ All rights reserved.
 """
 
 
-from gdl.models.external.Deep3DFace import Deep3DFaceModule
-from gdl.models.external.Face_3DDFA_v2 import Face3DDFAModule
+from EMOCA.emoca_model.gdl.models.external.Deep3DFace import Deep3DFaceModule
+from EMOCA.emoca_model.gdl.models.external.Face_3DDFA_v2 import Face3DDFAModule
 import time as t
 from affectnet_validation import *
 

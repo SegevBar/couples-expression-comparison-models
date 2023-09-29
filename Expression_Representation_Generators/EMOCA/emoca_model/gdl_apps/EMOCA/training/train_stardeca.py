@@ -18,16 +18,16 @@ All rights reserved.
 """
 
 
-from gdl_apps.EMOCA.training.test_and_finetune_deca import single_stage_deca_pass, create_logger #, get_checkpoint_with_kwargs
-from gdl.models.IO import get_checkpoint_with_kwargs
-from gdl.datasets.DecaDataModule import DecaDataModule
-from gdl.datasets.AffectNetDataModule import AffectNetDataModule
+from EMOCA.emoca_model.gdl_apps.EMOCA.training.test_and_finetune_deca import single_stage_deca_pass, create_logger #, get_checkpoint_with_kwargs
+from EMOCA.emoca_model.gdl.models.IO import get_checkpoint_with_kwargs
+from EMOCA.emoca_model.gdl.datasets.DecaDataModule import DecaDataModule
+from EMOCA.emoca_model.gdl.datasets.AffectNetDataModule import AffectNetDataModule
 from omegaconf import DictConfig, OmegaConf
 import sys
 from pathlib import Path
 from pytorch_lightning.loggers import WandbLogger
 import datetime
-from gdl.utils.other import class_from_str
+from EMOCA.emoca_model.gdl.utils.other import class_from_str
 
 project_name = 'EmotionalDeca'
 
@@ -500,7 +500,7 @@ def resume_training(run_path, start_at_stage, resume_from_previous, force_new_lo
 #     # cfg_pretrain_.model.deca_class = cfg_coarse.model.deca_class
 #     # checkpoint_kwargs["config"]["model"]["deca_class"] = cfg_coarse.model.deca_class
 #     # load from configs
-#     from gdl.models.EMOCA import instantiate_deca
+#     from EMOCA.emoca_model.gdl.models.EMOCA import instantiate_deca
 #
 #     deca_checkpoint_kwargs = {
 #         "model_params": checkpoint_kwargs["config"]["model"],
@@ -537,7 +537,7 @@ def configure_and_finetune_from_pretrained(coarse_conf, coarse_override, detail_
         # cfg_pretrain_.model.deca_class = cfg_coarse.model.deca_class
         # checkpoint_kwargs["config"]["model"]["deca_class"] = cfg_coarse.model.deca_class
         # load from configs
-        from gdl.models.DECA import instantiate_deca
+        from EMOCA.emoca_model.gdl.models.DECA import instantiate_deca
 
         deca_checkpoint_kwargs = {
             "model_params": checkpoint_kwargs["config"]["model"],
@@ -571,7 +571,7 @@ def finetune_from_pretrained(coarse_conf, detail_conf, resume_from_run_path):
         # cfg_pretrain_.model.deca_class = cfg_coarse.model.deca_class
         # checkpoint_kwargs["config"]["model"]["deca_class"] = cfg_coarse.model.deca_class
         # load from configs
-        from gdl.models.DECA import instantiate_deca
+        from EMOCA.emoca_model.gdl.models.DECA import instantiate_deca
         deca_checkpoint_kwargs = {
             "model_params": checkpoint_kwargs["config"]["model"],
             "learning_params": checkpoint_kwargs["config"]["learning"],

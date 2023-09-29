@@ -18,12 +18,12 @@ All rights reserved.
 """
 
 
-from gdl_apps.EMOCA.training.test_and_finetune_deca import single_stage_deca_pass
-from gdl_apps.EMOCA.utils.load import load_deca
+from EMOCA.emoca_model.gdl_apps.EMOCA.training.test_and_finetune_deca import single_stage_deca_pass
+from EMOCA.emoca_model.gdl_apps.EMOCA.utils.load import load_deca
 from omegaconf import DictConfig, OmegaConf
 import os, sys
 from pathlib import Path
-from gdl.datasets.AffectNetDataModule import AffectNetEmoNetSplitTestModule2
+from EMOCA.emoca_model.gdl.datasets.AffectNetDataModule import AffectNetEmoNetSplitTestModule2
 
 
 def load_model(path_to_models,

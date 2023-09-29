@@ -1,4 +1,4 @@
-from gdl_apps.EmotionRecognition.training.train_emodeca import resume_training
+from EMOCA.emoca_model.gdl_apps.EmotionRecognition.training.train_emodeca import resume_training
 import sys, os
 
 

@@ -18,9 +18,9 @@ All rights reserved.
 """
 
 
-from gdl.utils.condor import execute_on_cluster
+from EMOCA.emoca_model.gdl.utils.condor import execute_on_cluster
 from pathlib import Path
-from gdl_apps.EmotionRecognition.training import train_emodeca
+from EMOCA.emoca_model.gdl_apps.EmotionRecognition.training import train_emodeca
 import datetime
 from omegaconf import OmegaConf
 import time as t

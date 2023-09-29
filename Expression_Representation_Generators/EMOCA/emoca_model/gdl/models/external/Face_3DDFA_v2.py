@@ -22,7 +22,7 @@ import sys, os
 from pathlib import Path
 
 import numpy as np
-from gdl.utils.other import get_path_to_externals
+from EMOCA.emoca_model.gdl.utils.other import get_path_to_externals
 
 repo_dir = str(get_path_to_externals())
 sys.path += [repo_dir]
@@ -43,7 +43,7 @@ import torch.nn.functional as F
 from omegaconf import OmegaConf
 
 import pytorch_lightning as pl
-from gdl.utils.lightning_logging import _log_array_image, _log_wandb_image, _torch_image2np
+from EMOCA.emoca_model.gdl.utils.lightning_logging import _log_array_image, _log_wandb_image, _torch_image2np
 from pytorch_lightning.loggers import WandbLogger
 
 

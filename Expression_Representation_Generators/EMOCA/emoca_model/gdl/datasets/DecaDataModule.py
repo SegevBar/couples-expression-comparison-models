@@ -1111,7 +1111,7 @@ class TestData(Dataset):
             # self.face_detector = detectors.Dlib(model_path=face_detector_model)
             raise NotImplementedError()
         elif face_detector == 'fan':
-            from gdl.utils.FaceDetector import FAN
+            from EMOCA.emoca_model.gdl.utils.FaceDetector import FAN
             # self.face_detector = detectors.FAN()
             self.face_detector = FAN()
         else:
@@ -1213,7 +1213,7 @@ class EvalData(Dataset):
             # self.face_detector = detectors.Dlib(model_path=face_detector_model)
             raise NotImplementedError()
         elif face_detector == 'fan':
-            from gdl.utils.FaceDetector import FAN
+            from EMOCA.emoca_model.gdl.utils.FaceDetector import FAN
             # self.face_detector = detectors.FAN()
             self.face_detector = FAN()
         else:
@@ -1502,7 +1502,7 @@ class FFHQ_val(Dataset):
                 }
 
 
-from gdl.utils.DecaUtils import load_torch7_landmarks, cut_image, calc_aabb #, load_torch7_landmarks_v2
+from EMOCA.emoca_model.gdl.utils.DecaUtils import load_torch7_landmarks, cut_image, calc_aabb #, load_torch7_landmarks_v2
 
 class GIF_val(Dataset):
     def __init__(self, ring_elements, crop_size, path):

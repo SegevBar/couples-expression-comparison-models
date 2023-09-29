@@ -22,12 +22,12 @@ from venv import create
 
 import torch
 import torch.functional as F
-from gdl_apps.EMOCA.interactive_deca_decoder import load_deca_and_data, test #, plot_results
+from EMOCA.emoca_model.gdl_apps.EMOCA.interactive_deca_decoder import load_deca_and_data, test #, plot_results
 from affectnet_validation import load_model
 import copy
-from gdl.layers.losses.EmoNetLoss import EmoNetLoss, EmoLossBase, EmoBackboneLoss, EmoNetModule
-from gdl.layers.losses.emotion_loss_loader import emo_network_from_path
-from gdl.models.DECA import DecaModule, DECA, DecaMode
+from EMOCA.emoca_model.gdl.layers.losses.EmoNetLoss import EmoNetLoss, EmoLossBase, EmoBackboneLoss, EmoNetModule
+from EMOCA.emoca_model.gdl.layers.losses.emotion_loss_loader import emo_network_from_path
+from EMOCA.emoca_model.gdl.models.DECA import DecaModule, DECA, DecaMode
 from skimage.io import imread, imsave
 from skimage.transform import resize, rescale
 import numpy as np
@@ -40,9 +40,9 @@ from pytorch_lightning.loggers import WandbLogger
 import datetime
 import wandb
 
-from gdl.utils.image import numpy_image_to_torch
-from gdl.datasets.IO import load_and_process_segmentation
-from gdl.utils.FaceDetector import load_landmark
+from EMOCA.emoca_model.gdl.utils.image import numpy_image_to_torch
+from EMOCA.emoca_model.gdl.datasets.IO import load_and_process_segmentation
+from EMOCA.emoca_model.gdl.utils.FaceDetector import load_landmark
 import pickle as pkl
 
 def load_image_to_batch(image):

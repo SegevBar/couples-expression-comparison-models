@@ -18,19 +18,19 @@ All rights reserved.
 """
 
 
-from gdl_apps.EMOCA.training.test_and_finetune_deca import single_stage_deca_pass, get_checkpoint_with_kwargs, create_logger
-from gdl.datasets.DecaDataModule import DecaDataModule
-from gdl.datasets.AffectNetDataModule import AffectNetDataModule, AffectNetDataModuleValTest, \
+from EMOCA.emoca_model.gdl_apps.EMOCA.training.test_and_finetune_deca import single_stage_deca_pass, get_checkpoint_with_kwargs, create_logger
+from EMOCA.emoca_model.gdl.datasets.DecaDataModule import DecaDataModule
+from EMOCA.emoca_model.gdl.datasets.AffectNetDataModule import AffectNetDataModule, AffectNetDataModuleValTest, \
     AffectNetEmoNetSplitModuleValTest, AffectNetEmoNetSplitModule, AffectNetEmoNetSplitModuleTest
-from gdl.datasets.AfewVaDataModule import AfewVaDataModule
-from gdl.datasets.CombinedDataModule import CombinedDataModule
-from gdl.datasets.EmotioNetDataModule import EmotioNetDataModule
+from EMOCA.emoca_model.gdl.datasets.AfewVaDataModule import AfewVaDataModule
+from EMOCA.emoca_model.gdl.datasets.CombinedDataModule import CombinedDataModule
+from EMOCA.emoca_model.gdl.datasets.EmotioNetDataModule import EmotioNetDataModule
 from omegaconf import DictConfig, OmegaConf
 import sys
 from pathlib import Path
 from pytorch_lightning.loggers import WandbLogger
 import datetime
-from gdl.utils.other import class_from_str
+from EMOCA.emoca_model.gdl.utils.other import class_from_str
 
 
 project_name = 'EmotionalDeca'

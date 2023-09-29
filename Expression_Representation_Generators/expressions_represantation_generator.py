@@ -1,7 +1,5 @@
 import os
-import csv
 import argparse
-from datetime import datetime
 import numpy as np
 
 
@@ -44,9 +42,7 @@ def main(args):
             # Save outputs to CSV
             csv_filename = os.path.join(curr_result_path, foldername + ".csv")
             np.savetxt(csv_filename, all_expressions_representations, delimiter=',')
-            # with open(csv_filename, mode='w', newline='') as file:
-            #     writer = csv.writer(file)
-            #     writer.writerows(all_expressions_representations)
+
 
 
 if __name__ == "__main__":

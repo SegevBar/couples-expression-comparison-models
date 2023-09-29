@@ -22,13 +22,13 @@ import os, sys
 from pathlib import Path
 sys.path += [str(Path(__file__).parent.parent)]
 
-from gdl.datasets.FaceVideoDataModule import FaceVideoDataModule
-from gdl.datasets.AffWild2Dataset import AffWild2DMBase
-from gdl.datasets.EmotionalDataModule import AffWild2DataModule
+from EMOCA.emoca_model.gdl.datasets.FaceVideoDataModule import FaceVideoDataModule
+from EMOCA.emoca_model.gdl.datasets.AffWild2Dataset import AffWild2DMBase
+from EMOCA.emoca_model.gdl.datasets.EmotionalDataModule import AffWild2DataModule
 from pytorch_lightning import Trainer
 from pytorch_lightning.callbacks import ModelCheckpoint, EarlyStopping
 
-from gdl.models.DECA import DecaModule, instantiate_deca
+from EMOCA.emoca_model.gdl.models.DECA import DecaModule, instantiate_deca
 from pytorch_lightning.loggers import WandbLogger
 import datetime
 import time as t

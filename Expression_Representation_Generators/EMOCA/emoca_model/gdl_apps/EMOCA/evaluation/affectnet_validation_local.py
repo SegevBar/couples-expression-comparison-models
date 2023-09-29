@@ -19,7 +19,7 @@ All rights reserved.
 
 
 from affectnet_validation import *
-from gdl_apps.EMOCA.utils.load import load_model
+from EMOCA.emoca_model.gdl_apps.EMOCA.utils.load import load_model
 
 
 def main():

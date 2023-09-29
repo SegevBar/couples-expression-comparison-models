@@ -7,6 +7,6 @@
 [submodule "Expression_Representation_Generators/EMOCA/emoca_model/external/emonet"]
 	path = Expression_Representation_Generators/EMOCA/emoca_model/external/emonet
 	url = https://github.com/radekd91/emonet.git
-[submodule "Expression_Representation_Generators/EMOCA/emoca_model/external/Swin-Transformer"]
-	path = Expression_Representation_Generators/EMOCA/emoca_model/external/Swin-Transformer
+[submodule "Expression_Representation_Generators/EMOCA/emoca_model/external/SwinTransformer"]
+	path = Expression_Representation_Generators/EMOCA/emoca_model/external/SwinTransformer
 	url = https://github.com/radekd91/Swin-Transformer.git

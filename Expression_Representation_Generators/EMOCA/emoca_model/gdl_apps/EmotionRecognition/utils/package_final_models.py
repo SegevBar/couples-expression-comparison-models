@@ -18,10 +18,10 @@ All rights reserved.
 """
 
 
-from gdl_apps.EmotionRecognition.utils.package_model import package_model, test_loading
-import gdl
+from EMOCA.emoca_model.gdl_apps.EmotionRecognition.utils.package_model import package_model, test_loading
+import EMOCA.emoca_model.gdl
 from pathlib import Path
-from gdl.utils.other import get_path_to_assets
+from EMOCA.emoca_model.gdl.utils.other import get_path_to_assets
 
 
 def main():

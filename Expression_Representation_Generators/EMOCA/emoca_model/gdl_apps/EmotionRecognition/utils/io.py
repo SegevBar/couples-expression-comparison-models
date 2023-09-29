@@ -18,21 +18,21 @@ All rights reserved.
 """
 
 
-from gdl.models.EmoDECA import EmoDECA 
-from gdl.models.EmoCnnModule import EmoCnnModule 
+from EMOCA.emoca_model.gdl.models.EmoDECA import EmoDECA
+from EMOCA.emoca_model.gdl.models.EmoCnnModule import EmoCnnModule
 try:
-    from gdl.models.EmoSwinModule import EmoSwinModule 
+    from EMOCA.emoca_model.gdl.models.EmoSwinModule import EmoSwinModule
 except ImportError as e: 
     print(f"Could not import EmoSwinModule. SWIN models will not be available.  Make sure you pull the repository with submodules to enable Swin.")
 try:
-    from gdl.models.EmoNetModule import EmoNetModule
+    from EMOCA.emoca_model.gdl.models.EmoNetModule import EmoNetModule
 except ImportError as e: 
     print(f"Could not import EmoNetModule. EmoNet models will not be available.  Make sure you pull the repository with submodules to enable EmoNet.")
-from gdl.models.IO import locate_checkpoint
-from gdl.utils.other import class_from_str
+from EMOCA.emoca_model.gdl.models.IO import locate_checkpoint
+from EMOCA.emoca_model.gdl.utils.other import class_from_str
 from pathlib import Path
 import sys 
-from gdl.utils.other import get_path_to_assets
+from EMOCA.emoca_model.gdl.utils.other import get_path_to_assets
 
 
 def load_configs(run_path):
