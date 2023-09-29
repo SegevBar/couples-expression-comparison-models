@@ -31,7 +31,7 @@ echo ""
 
 # update configured comparison metrics
 echo "Configured comparison metrics:"
-echo "    Euclidean Average: ${EUCLIDEAN_AVERAGE}"
+echo "    Average Minimal Distance: ${AVERAGE_MINIMAL_DISTANCE}"
 echo "    Cluster Couple Ratio: ${CLUSTER_COUPLE_RATIO}"
 echo ""
 
@@ -43,16 +43,16 @@ while [[ ! "$answer_comparison_metrics" =~ ^[YyNn]$ ]]; do
     fi
 done
 if [[ "$answer_comparison_metrics" =~ ^[Yy]$ ]]; then
-    answer_euclidean=""
+    answer_avg_min_dist=""
     while [[ ! "$answer_euclidean" =~ ^[YyNn]$ ]]; do
-        read -p "Do you want to run Euclidean Average metric? (y/n) " answer_euclidean
+        read -p "Do you want to run Average Minimal Distance metric? (y/n) " answer_avg_min_dist
         if [[ ! "$answer_euclidean" =~ ^[YyNn]$ ]]; then
             echo "Invalid input! Please answer with y or n."
         else
             if [[ "$answer_euclidean" =~ ^[Yy]$ ]]; then
-                sed -i "/EUCLIDEAN_AVERAGE=/c\EUCLIDEAN_AVERAGE=\"$TRUE\"" config.cfg
+                sed -i "/AVERAGE_MINIMAL_DISTANCE=/c\AVERAGE_MINIMAL_DISTANCE=\"$TRUE\"" config.cfg
             else
-                sed -i "/EUCLIDEAN_AVERAGE=/c\EUCLIDEAN_AVERAGE=\"$FALSE\"" config.cfg
+                sed -i "/AVERAGE_MINIMAL_DISTANCE=/c\AVERAGE_MINIMAL_DISTANCE=\"$FALSE\"" config.cfg
             fi
         fi
     done

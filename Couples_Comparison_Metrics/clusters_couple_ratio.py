@@ -41,25 +41,32 @@ def _cluster_centroid(labels, cluster_idx, combined_data):
 
 
 def _run_metric_couple(part1, part2):
+    original_sets = [part1, part2]
 
     combined_data = _combine_couple_datasets(part1, part2)
     cluster_labels = _apply_dbscan_clustering_to_combined_dataset(combined_data)
-    # _cluster_ratio(labels, cluster_idx, original_sets, combined_data)
-    # cluster_ratios = [cluster_ratio(cluster_labels, cluster_idx, original_sets) for cluster_idx in
-    #                   np.unique(cluster_labels)]
+    cluster_ratios = [_cluster_ratio(cluster_labels, cluster_idx, original_sets) for cluster_idx in
+                      np.unique(cluster_labels)]
 
-    # cluster_size_to_print = 100
-    # for i, (set1_ratio, set2_ratio, total_count) in enumerate(cluster_ratios):
-    #     if total_count > cluster_size_to_print:
-    #         centroid = cluster_centroid(cluster_labels, i)
-    #         print(
-    #             f"Cluster {i}: Set1 ratio: {set1_ratio / total_count:.4f}, Set2 ratio: {set2_ratio / total_count:.4f}, Number of Points: {total_count}")
-    #         print(f"Cluster {i}: Centroid: {centroid}")
-    #     else:
-    #         print(
-    #             f"Cluster {i}: Set1 ratio: {set1_ratio / total_count:.4f}, Set2 ratio: {set2_ratio / total_count:.4f}, Number of Points: {total_count}")
+    cluster_size_to_print = 100
+    for i, (set1_ratio, set2_ratio, total_count) in enumerate(cluster_ratios):
+        if total_count > cluster_size_to_print:
+            centroid = _cluster_centroid(cluster_labels, i)
+            print(
+                f"Cluster {i}: Set1 ratio: {set1_ratio / total_count:.4f}, Set2 ratio: {set2_ratio / total_count:.4f}, Number of Points: {total_count}")
+            print(f"Cluster {i}: Centroid: {centroid}")
+        else:
+            print(
+                f"Cluster {i}: Set1 ratio: {set1_ratio / total_count:.4f}, Set2 ratio: {set2_ratio / total_count:.4f}, Number of Points: {total_count}")
 
 
-def run_metric(coupling, participants_exp_rep):
-    for couple in coupling:
-        _run_metric_couple(participants_exp_rep[couple[0]], participants_exp_rep[couple[1]])
+class ClusterCoupleRatio:
+    @staticmethod
+    def run_metric(coupling, participants_exp_rep):
+        print("Running Cluster Couple Ratio Metric")
+        results = {}
+
+        for couple in coupling:
+            results.update(
+                {couple: {(_run_metric_couple(participants_exp_rep[couple[0]], participants_exp_rep[couple[1]]))}})
+

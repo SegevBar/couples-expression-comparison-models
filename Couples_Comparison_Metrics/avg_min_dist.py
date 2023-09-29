@@ -15,9 +15,12 @@ def _run_metric_couple(part1, part2):
     return distances.mean()
 
 
-def run_metric(coupling, participants_exp_rep):
-    results = {}
+class AvgMinDist:
+    @staticmethod
+    def run_metric(coupling, participants_exp_rep):
+        print("Running Average Minimal Distance Metric")
+        results = {}
 
-    for couple in coupling:
-        results.update({couple: [(_run_metric_couple(participants_exp_rep[couple[0]], participants_exp_rep[couple[1]])),
-                        _run_closest_exp(participants_exp_rep[couple[0]], participants_exp_rep[couple[1]])]})
+        for couple in coupling:
+            results.update({couple: {(_run_metric_couple(participants_exp_rep[couple[0]], participants_exp_rep[couple[1]])),
+                            _run_closest_exp(participants_exp_rep[couple[0]], participants_exp_rep[couple[1]])}})

@@ -31,29 +31,35 @@ def main(args):
         from DECA.deca_expressions_represantation_generator import DecaExpGenerator
         generator = DecaExpGenerator
 
-    for filename in os.listdir(data_dir):
-        if filename.endswith(".mp4"):
-            print("-"*100)
-            print(f"Current video: {filename}")
+    all_files = os.listdir(data_dir)
+    videos = [file for file in all_files if file.endswith(".mp4")]
+    videos_count = len(videos)
+    count = 0
 
-            # get current user_id and it's couple_id
-            parts = filename.split("_")
-            user_id = parts[0]
-            couple_id = parts[1]
+    for filename in videos:
+        count += 1
+        print("-"*150)
+        print(f"Processing video {count}/{videos_count}")
+        print(f"Current video: {filename}")
 
-            # find couples
-            if not coupling.get(couple_id):
-                coupling[couple_id] = set()
-            coupling[couple_id].add(user_id)
+        # get current user_id and it's couple_id
+        parts = filename.split("_")
+        user_id = parts[0]
+        couple_id = parts[1]
 
-            # apply expression representation generator
-            video_path = os.path.join(data_dir, filename)
-            curr_expressions_representations = generator(video_path).generate_expressions_representation()
+        # find couples
+        if not coupling.get(couple_id):
+            coupling[couple_id] = set()
+        coupling[couple_id].add(user_id)
 
-            # save expression representation to csv file
-            csv_filename = os.path.join(curr_result_path, user_id + ".csv")
-            with open(csv_filename, 'a') as file:
-                np.savetxt(file, curr_expressions_representations, delimiter=',')
+        # apply expression representation generator
+        video_path = os.path.join(data_dir, filename)
+        curr_expressions_representations = generator(video_path).generate_expressions_representation()
+
+        # save expression representation to csv file
+        csv_filename = os.path.join(curr_result_path, user_id + ".csv")
+        with open(csv_filename, 'a') as file:
+            np.savetxt(file, curr_expressions_representations, delimiter=',')
 
     # save coupling
     np.savetxt(coupling_path, np.array([list(value) for value in coupling.values()]), delimiter=',', fmt='%s')

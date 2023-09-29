@@ -12,7 +12,7 @@ def load_exp_rep(csvs_path):
     participants_exp_rep = {}
 
     for filename in os.listdir(csvs_path):
-        if filename.endswith('.csv'):
+        if filename.endswith('.csv') and os.path.splitext(filename) != "coupling.csv":
             file_path = os.path.join(csvs_path, filename)
             key = os.path.splitext(filename)[0]
             participants_exp_rep[key] = pd.read_csv(file_path)
@@ -21,7 +21,9 @@ def load_exp_rep(csvs_path):
 
 
 def get_couples(coupling_path):
-    pass
+    df = pd.read_csv(coupling_path, header=None, names=['user_id_1', 'user_id_2'])
+    couples = list(zip(df['user_id_1'], df['user_id_2']))
+    print(couples)
 
 
 
