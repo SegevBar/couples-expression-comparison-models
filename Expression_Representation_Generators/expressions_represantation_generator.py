@@ -15,9 +15,10 @@ def main(args):
     results_dir = get_absolute_path("Results")
 
     curr_result_path = os.path.join(results_dir, args.resultpath)
-
     print(curr_result_path, data_dir)
+
     coupling = {}
+    coupling_path = os.path.join(curr_result_path, "coupling.csv")
 
     # init chosen generator
     if args.typegenerator == "EMOCA":
@@ -53,6 +54,9 @@ def main(args):
             csv_filename = os.path.join(curr_result_path, user_id + ".csv")
             with open(csv_filename, 'a') as file:
                 np.savetxt(file, curr_expressions_representations, delimiter=',')
+
+    # save coupling
+    np.savetxt(coupling_path, np.array([list(value) for value in coupling.values()]), delimiter=',', fmt='%s')
 
 
 if __name__ == "__main__":

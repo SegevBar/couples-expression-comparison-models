@@ -24,7 +24,7 @@ from skimage.transform import estimate_transform, warp
 from glob import glob
 import scipy.io
 
-from Expression_Representation_Generators.DECA.deca_model.decalib.datasets import detectors
+from DECA.deca_model.decalib.datasets import detectors
 
 
 def video2sequence(video_path, output_path, sample_step=10):
