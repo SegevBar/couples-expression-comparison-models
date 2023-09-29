@@ -10,12 +10,13 @@ METRICS = {
     "cluster_couple_ratio": ClusterCoupleRatio
 }
 
+
 def parse_key_value_pairs(s):
     pairs = s.split()
     metrics = []
     for pair in pairs:
         key, value = pair.split(":")
-        if bool(value):
+        if value == "True":
             metrics.append(key)
     return metrics
 
@@ -25,15 +26,14 @@ def main(args):
     csvs_path = os.path.join(results_dir, args.resultpath)
     run_metrics = args.metrics
     coupling_path = os.path.join(csvs_path, 'coupling.csv')
-    print(csvs_path, run_metrics, coupling_path)
 
     # load data - expressions representations and coupling
     participants_exp_rep = load_exp_rep(csvs_path)
     couples = get_couples(coupling_path)
+    strangers = get_strangers(couples)
 
-    print(run_metrics)
     for metric in run_metrics:
-        METRICS[metric].run_metric(couples, participants_exp_rep)
+        METRICS[metric].run_metric(couples, strangers, participants_exp_rep)
 
 
 if __name__ == '__main__':

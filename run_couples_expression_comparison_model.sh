@@ -36,6 +36,6 @@ cd Expression_Representation_Generators
 python expressions_represantation_generator.py -t $current_exp_rep_generator -r $result_folder_name
 
 # Run Comparisons Metrics
-#echo "Calculating Metrics:"
-#cd ../Couples_Comparison_Metrics
-#python run_comparison_metrics.py -r "results_20230929_1811_DECA" --metrics "avg_min_dist:${AVERAGE_MINIMAL_DISTANCE} cluster_couple_ratio:${CLUSTER_COUPLE_RATIO}"
+echo "Calculating Metrics:"
+cd ../Couples_Comparison_Metrics
+python run_comparison_metrics.py -r "spectre" --metrics "avg_min_dist:${AVERAGE_MINIMAL_DISTANCE} cluster_couple_ratio:${CLUSTER_COUPLE_RATIO}"

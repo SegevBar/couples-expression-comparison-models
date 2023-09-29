@@ -41,6 +41,7 @@ def _cluster_centroid(labels, cluster_idx, combined_data):
 
 
 def _run_metric_couple(part1, part2):
+    result = {}
     original_sets = [part1, part2]
 
     combined_data = _combine_couple_datasets(part1, part2)
@@ -50,23 +51,25 @@ def _run_metric_couple(part1, part2):
 
     cluster_size_to_print = 100
     for i, (set1_ratio, set2_ratio, total_count) in enumerate(cluster_ratios):
-        if total_count > cluster_size_to_print:
-            centroid = _cluster_centroid(cluster_labels, i)
-            print(
-                f"Cluster {i}: Set1 ratio: {set1_ratio / total_count:.4f}, Set2 ratio: {set2_ratio / total_count:.4f}, Number of Points: {total_count}")
-            print(f"Cluster {i}: Centroid: {centroid}")
-        else:
-            print(
-                f"Cluster {i}: Set1 ratio: {set1_ratio / total_count:.4f}, Set2 ratio: {set2_ratio / total_count:.4f}, Number of Points: {total_count}")
-
+        result[i] = {
+            "centroid": _cluster_centroid(cluster_labels, i),
+            "Set1_ratio": set1_ratio / total_count,
+            "Set2_ratio": set2_ratio / total_count,
+            "num_of_points": total_count
+        }
+    return result
 
 class ClusterCoupleRatio:
     @staticmethod
-    def run_metric(coupling, participants_exp_rep):
+    def run_metric(coupling, strangers, participants_exp_rep):
         print("Running Cluster Couple Ratio Metric")
-        results = {}
 
+        couples_results = {}
+        strangers_results = {}
         for couple in coupling:
-            results.update(
+            couples_results[couple] = _run_metric_couple(participants_exp_rep[couple[0]], participants_exp_rep[couple[1]])
+        for couple in strangers:
+            strangers_results.update(
                 {couple: {(_run_metric_couple(participants_exp_rep[couple[0]], participants_exp_rep[couple[1]]))}})
+
 

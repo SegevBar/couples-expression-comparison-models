@@ -1,26 +1,45 @@
-from scipy.spatial import distance
-from sklearn.metrics.pairwise import cosine_similarity
+from scipy.spatial.distance import euclidean
+import numpy as np
+
+from generate_histogram import generate_double_histogram
 
 
-def _run_closest_exp(part1, part2):
-    for idx, expression in enumerate(part1):
-        similarities = cosine_similarity([expression], part2)
-        most_similar_idx = similarities.argmax()
-        most_similar_value = similarities[0, most_similar_idx]
-        return idx, most_similar_idx, most_similar_value
+def _find_closest_exp(vector, part2):
+    min_distance = float('inf')
+    for index, row in enumerate(part2):
+        distance = euclidean(vector, row)
+        min_distance = min(min_distance, distance)
+    return min_distance
 
 
 def _run_metric_couple(part1, part2):
-    distances = distance.cdist(part1, part2, 'euclidean')
-    return distances.mean()
+    min_distances1 = np.zeros(len(part1), dtype=np.float64)
+    for i, vector in enumerate(part1):
+        min_distances1[i] = _find_closest_exp(vector, part2)
+    print(min_distances1)
+
+    min_distances2 = np.zeros(len(part2), dtype=np.float64)
+    for i, vector in enumerate(part2):
+        min_distances2[i] = _find_closest_exp(vector, part1)
+    print(min_distances2)
+
+    return np.mean([np.mean(min_distances1), np.mean(min_distances2)])
 
 
 class AvgMinDist:
     @staticmethod
-    def run_metric(coupling, participants_exp_rep):
+    def run_metric(coupling, strangers, participants_exp_rep):
         print("Running Average Minimal Distance Metric")
-        results = {}
 
+        couples_results = {}
+        strangers_results = {}
         for couple in coupling:
-            results.update({couple: {(_run_metric_couple(participants_exp_rep[couple[0]], participants_exp_rep[couple[1]])),
-                            _run_closest_exp(participants_exp_rep[couple[0]], participants_exp_rep[couple[1]])}})
+            print("strated ", couple)
+            couples_results[couple] = _run_metric_couple(participants_exp_rep[str(couple[0])], participants_exp_rep[str(couple[1])])
+        for couple in strangers:
+            print("strated ", couple)
+            strangers_results[couple] = _run_metric_couple(participants_exp_rep[str(couple[0])], participants_exp_rep[str(couple[1])])
+
+        print(couples_results.values(), strangers_results.values())
+        generate_double_histogram(couples_results.values(), strangers_results.values())
+
