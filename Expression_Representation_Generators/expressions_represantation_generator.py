@@ -16,6 +16,9 @@ def main(args):
 
     curr_result_path = os.path.join(results_dir, args.resultpath)
 
+    print(curr_result_path, data_dir)
+    coupling = {}
+
     # init chosen generator
     if args.typegenerator == "EMOCA":
         from EMOCA.emoca_expressions_represantation_generator import EmocaExpGenerator
@@ -27,22 +30,29 @@ def main(args):
         from DECA.deca_expressions_represantation_generator import DecaExpGenerator
         generator = DecaExpGenerator
 
-    for foldername in os.listdir(data_dir):
-        folder_path = os.path.join(data_dir, foldername)
+    for filename in os.listdir(data_dir):
+        if filename.endswith(".mp4"):
+            print("-"*100)
+            print(f"Current video: {filename}")
 
-        if os.path.isdir(folder_path):
-            all_expressions_representations = np.empty((0, 50))
+            # get current user_id and it's couple_id
+            parts = filename.split("_")
+            user_id = parts[0]
+            couple_id = parts[1]
 
-            for filename in os.listdir(folder_path):
-                if filename.endswith('.mp4'):
-                    video_path = os.path.join(folder_path, filename)
-                    curr_expressions_representations = generator(video_path).generate_expressions_representation()
-                    all_expressions_representations = np.vstack((all_expressions_representations, curr_expressions_representations))
+            # find couples
+            if not coupling.get(couple_id):
+                coupling[couple_id] = set()
+            coupling[couple_id].add(user_id)
 
-            # Save outputs to CSV
-            csv_filename = os.path.join(curr_result_path, foldername + ".csv")
-            np.savetxt(csv_filename, all_expressions_representations, delimiter=',')
+            # apply expression representation generator
+            video_path = os.path.join(data_dir, filename)
+            curr_expressions_representations = generator(video_path).generate_expressions_representation()
 
+            # save expression representation to csv file
+            csv_filename = os.path.join(curr_result_path, user_id + ".csv")
+            with open(csv_filename, 'a') as file:
+                np.savetxt(file, curr_expressions_representations, delimiter=',')
 
 
 if __name__ == "__main__":

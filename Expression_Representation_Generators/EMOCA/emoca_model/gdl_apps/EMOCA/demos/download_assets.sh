@@ -1,4 +1,4 @@
-cd ../../.. 
+cd emoca_model/
 mkdir -p assets 
 cd assets
 
@@ -46,12 +46,3 @@ echo "Extracting FLAME..."
 unzip FLAME.zip
 echo "Assets for EMOCA downloaded and extracted."
 
-cd ../
-mkdir data 
-cd data
-echo "Downloading example test data"
-wget https://download.is.tue.mpg.de/emoca/assets/data/EMOCA_test_example_data.zip -O EMOCA_test_example_data.zip
-unzip EMOCA_test_example_data.zip
-echo "Example test data downloaded and extracted."
-
-cd ../gdl_apps/EMOCA/demos

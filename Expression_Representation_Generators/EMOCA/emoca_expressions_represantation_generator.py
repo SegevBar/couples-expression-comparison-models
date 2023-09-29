@@ -17,6 +17,7 @@ import argparse
 from EMOCA.emoca_model.gdl_apps.EMOCA.utils.io import save_obj, save_images, save_codes, test
 import numpy as np
 import os
+import shutil
 
 PATH = "EMOCA"
 
@@ -26,7 +27,7 @@ class EmocaExpGenerator:
         self.input_path = input_path
         self.device = device
         self.model_name = "EMOCA_v2_lr_mse_20"
-        self.path_to_models = str(Path(gdl.__file__).parents[1] / "assets/EMOCA/models")
+        self.path_to_models = str(Path(EMOCA.emoca_model.gdl.__file__).parents[1] / "assets/EMOCA/models")
         self.mode = "detail"
         self.processed_subfolder = None
         self.preprocessed_video_path = os.path.join(PATH, "preprocessed_video")
@@ -44,7 +45,11 @@ class EmocaExpGenerator:
 
     def create_preprocessed_video_dir(self):
         if os.path.exists(self.preprocessed_video_path):
-            os.rmdir(self.preprocessed_video_path)
+            try:
+                shutil.rmtree(self.preprocessed_video_path)
+                print(f"Directory '{self.preprocessed_video_path}' and its contents deleted.")
+            except OSError as e:
+                print(f"Error: {e}")
         os.makedirs(self.preprocessed_video_path)
 
     def generate_expressions_representation(self):
@@ -52,7 +57,7 @@ class EmocaExpGenerator:
         self.create_preprocessed_video_dir()
 
         # 1) Process the video - extract the frames from video and detected faces
-        dm = TestFaceVideoDM(self.input_video, self.preprocessed_video_path, processed_subfolder=self.processed_subfolder,
+        dm = TestFaceVideoDM(self.input_path, self.preprocessed_video_path, processed_subfolder=self.processed_subfolder,
             batch_size=4, num_workers=4)
         dm.prepare_data()
         dm.setup()
@@ -70,7 +75,6 @@ class EmocaExpGenerator:
         frame_counter = 0
         # 4) Run the model on the data
         for j, batch in enumerate(auto.tqdm(dl)):
-            frame_counter += 1
 
             current_bs = batch["image"].shape[0]
             img = batch
@@ -80,9 +84,7 @@ class EmocaExpGenerator:
             exp_array = np.append(exp_array, exp_vector)
 
             for i in range(current_bs):
-                name = batch["image_name"][i]
-                sample_output_folder = Path(self.preprocessed_video_path) / name
-                sample_output_folder.mkdir(parents=True, exist_ok=True)
+                frame_counter += 1
 
         exp_array = exp_array.reshape(frame_counter, 50)
         return exp_array
