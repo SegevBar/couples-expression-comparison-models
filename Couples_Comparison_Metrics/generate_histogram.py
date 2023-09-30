@@ -1,12 +1,15 @@
 import numpy
-from matplotlib import pyplot
+import matplotlib.pyplot as plt
 
 
-def generate_double_histogram(x, y):
-    bins = numpy.linspace(0, max([max(x), max(y)]), 10)
+def generate_double_histogram(couples, strangers, name):
+    #max_val = max([max(couples), max(strangers)])
+    #min_val = min([min(couples), min(strangers)])
 
-    pyplot.hist(x, bins, alpha=0.5, label='x')
-    pyplot.hist(y, bins, alpha=0.5, label='y')
-    pyplot.legend(loc='upper right')
-    pyplot.show()
+    #bins = numpy.linspace(min_val, max_val, 10)
+    plt.hist([couples, strangers], bins=10, label=['couples', 'strangers'])
+    plt.legend(loc='upper right')
+    plt.savefig(name)
+    plt.show()
+
 

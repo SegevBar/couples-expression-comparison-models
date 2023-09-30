@@ -27,13 +27,18 @@ def main(args):
     run_metrics = args.metrics
     coupling_path = os.path.join(csvs_path, 'coupling.csv')
 
+    # create a result folder
+    result_path = os.path.join(csvs_path, "comparison_metrics_results")
+    os.makedirs(result_path)
+
     # load data - expressions representations and coupling
     participants_exp_rep = load_exp_rep(csvs_path)
     couples = get_couples(coupling_path)
     strangers = get_strangers(couples)
 
+    # compute metrics
     for metric in run_metrics:
-        METRICS[metric].run_metric(couples, strangers, participants_exp_rep)
+        METRICS[metric].run_metric(couples, strangers, participants_exp_rep, result_path)
 
 
 if __name__ == '__main__':

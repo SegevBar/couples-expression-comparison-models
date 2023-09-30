@@ -7,7 +7,7 @@ source config.cfg
 current_exp_rep_generator=$EXP_REP_GENERATOR
 conda_env="${current_exp_rep_generator,,}"
 
-# Uplaod your data manualy to couples_expression_comparison_models\Data folder
+## Uplaod your data manualy to couples_expression_comparison_models\Data folder
 answer_data=""
 while [[ ! "$answer_data" =~ ^[YyNn]$ ]]; do
     read -p "Please make sure your data is saved to couples_expression_comparison_models\Data folder. Press y to continue " answer_data
