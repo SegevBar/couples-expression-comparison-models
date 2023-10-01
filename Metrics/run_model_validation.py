@@ -22,7 +22,7 @@ def main():
 
     # create a result folder
     result_path = os.path.join(results_dir, "model_validation_results")
-    os.makedirs(result_path)
+    os.makedirs(result_path, exist_ok=True)
 
     # load data - expressions representations and coupling
     participants_exp_rep = load_exp_rep(results_dir)

@@ -9,3 +9,6 @@ pytorch_lightning==1.5
 opencv-python==4.6.0.66
 phonemizer==3.2.1
 jiwer==2.3.0
+pandas==1.4.2
+matplotlib==3.3.4
+matplotlib-inline==0.1.6

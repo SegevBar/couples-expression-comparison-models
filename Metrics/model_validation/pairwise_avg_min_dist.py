@@ -4,7 +4,7 @@ import torch
 import numpy as np
 
 from metrics_utils.data_visualization.generate_heatmap import generate_heatmap
-from metrics_utils.metrics_utils import find_min_dist
+from metrics_utils.metrics_utils import find_min_dist_cuda, find_min_dist
 
 
 # CUDA device
@@ -15,9 +15,12 @@ def pairwise_distances(part1, part2, threshold=1):
     part1 = torch.tensor(part1, dtype=torch.float64, device=device)
     part2 = torch.tensor(part2, dtype=torch.float64, device=device)
 
-    min_distances = torch.zeros(len(part1), dtype=torch.float64, device=device)
-    for i, vector in enumerate(part1):
-        min_distances[i] = find_min_dist(vector, part2)
+    if torch.cuda.is_available():
+        find_min_dist_cuda(part1, part2)
+    else:
+        min_distances = torch.zeros(len(part1), dtype=torch.float64, device=device)
+        for i, vector in enumerate(part1):
+            min_distances[i] = find_min_dist(vector, part2)
 
     sorted_values, sorted_indices = torch.sort(min_distances)
     num_to_keep = int(len(sorted_values) * threshold)
@@ -28,6 +31,7 @@ def pairwise_distances(part1, part2, threshold=1):
 class PairwiseAvgMinDist:
     @staticmethod
     def run_metric(all_part, participants_exp_rep, result_path):
+        print("-" * 150)
         print("\nRunning pairwise average minimal distance metric")
 
         n = len(all_part)
@@ -35,7 +39,7 @@ class PairwiseAvgMinDist:
 
         for i in range(n):
             for j in range(n):
-                print(f"calculating pair: ${participants_exp_rep[str(all_part[i])]} - {participants_exp_rep[str(all_part[j])]}")
+                print(f"calculating pair: {all_part[i]} - {all_part[j]}")
                 if i == j:
                     all_data = participants_exp_rep[str(all_part[i])]
                     results[i][j] = pairwise_distances(all_data[:len(all_data)//2], all_data[len(all_data)//2:], threshold=1)

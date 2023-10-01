@@ -2,8 +2,8 @@ import os
 import numpy as np
 import torch
 
-from Metrics.metrics_utils.data_visualization.generate_histogram import generate_double_histogram
-from Metrics.metrics_utils.metrics_utils import find_min_dist
+from metrics_utils.data_visualization.generate_histogram import generate_double_histogram
+from metrics_utils.metrics_utils import find_min_dist, find_min_dist_cuda
 from scipy.stats import mannwhitneyu
 from scipy import stats
 
@@ -11,27 +11,28 @@ from scipy import stats
 # CUDA device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-def _run_metric_couple(part1, part2):
+
+def _run_metric_couple(part1, part2, threshold=1):
     part1 = torch.tensor(part1, dtype=torch.float64, device=device)
     part2 = torch.tensor(part2, dtype=torch.float64, device=device)
 
-    min_distances1 = torch.zeros(len(part1), dtype=torch.float64, device=device)
-    for i, vector in enumerate(part1):
-        min_distances1[i] = find_min_dist(vector, part2)
+    if torch.cuda.is_available():
+        find_min_dist_cuda(part1, part2)
+    else:
+        min_distances = torch.zeros(len(part1), dtype=torch.float64, device=device)
+        for i, vector in enumerate(part1):
+            min_distances[i] = find_min_dist(vector, part2)
 
-    min_distances2 = torch.zeros(len(part2), dtype=torch.float64, device=device)
-    for i, vector in enumerate(part2):
-        min_distances2[i] = find_min_dist(vector, part1)
+    sorted_values, sorted_indices = torch.sort(min_distances)
+    num_to_keep = int(len(sorted_values) * threshold)
 
-    mean_min_distances1 = torch.mean(min_distances1)
-    mean_min_distances2 = torch.mean(min_distances2)
-
-    return (mean_min_distances1.item() + mean_min_distances2.item()) / 2.0
+    return torch.mean(sorted_values[:num_to_keep])
 
 
 class AvgMinDist:
     @staticmethod
     def run_metric(coupling, strangers, participants_exp_rep, result_path):
+        print("-" * 150)
         print("\nRunning Average Minimal Distance Metric")
 
         couples_results = {}
@@ -39,14 +40,11 @@ class AvgMinDist:
         for couple in coupling:
             print("calculating couple", couple)
             couples_results[couple] = _run_metric_couple(participants_exp_rep[str(couple[0])],
-                                                         participants_exp_rep[str(couple[1])])
+                                                         participants_exp_rep[str(couple[1])], threshold=1)
         for couple in strangers:
             print("calculating strangers", couple)
             strangers_results[couple] = _run_metric_couple(participants_exp_rep[str(couple[0])],
-                                                           participants_exp_rep[str(couple[1])])
-
-        #print("Couples: ", couples_results.values(), sum(couples_results.values())/len(couples_results.values()))
-        #print("Strangers: ", strangers_results.values(), sum(strangers_results.values())/len(strangers_results.values()))
+                                                           participants_exp_rep[str(couple[1])], threshold=1)
 
         print("\nCalculate statistics:")
         couple_res = [val for val in couples_results.values()]
