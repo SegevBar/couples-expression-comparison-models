@@ -44,8 +44,8 @@ class PairwiseAvgMinCos:
 
         n = len(all_part)
         results_100 = np.zeros((n, n))
+        results_90 = np.zeros((n, n))
         results_50 = np.zeros((n, n))
-        results_10 = np.zeros((n, n))
 
         count = 0
         for i in range(n):
@@ -58,16 +58,16 @@ class PairwiseAvgMinCos:
 
                 else:
                     res = _pairwise_cosine(participants_exp_rep[str(all_part[i])], participants_exp_rep[str(all_part[j])], threshold=1)
-
                 results_100[i][j] = _get_mean_by_threshold(res, 1.0)
+                results_90[i][j] = _get_mean_by_threshold(res, 0.9)
                 results_50[i][j] = _get_mean_by_threshold(res, 0.5)
-                results_10[i][j] = _get_mean_by_threshold(res, 0.1)
 
         print("Creating Heatmaps")
         _create_heatmap(results_100, os.path.join(result_path, "heatmap_avg_cos_100.png"),
                         "Average All Cosine Similarity Heatmap")
+        _create_heatmap(results_90, os.path.join(result_path, "heatmap_avg_cos_90.png"),
+                        "Average 90% Cosine Similarity Heatmap")
         _create_heatmap(results_50, os.path.join(result_path, "heatmap_avg_cos_50.png"),
                         "Average 50% Cosine Similarity Heatmap")
-        _create_heatmap(results_10, os.path.join(result_path, "heatmap_avg_cos_10.png"),
-                        "Average 10% Cosine Similarity Heatmap")
+
 

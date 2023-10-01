@@ -1,6 +1,6 @@
 from model_validation.dbscan_cluster import DbscanCluster
 from model_validation.nearest_neighbors_ratio import NearNeighborsRatio
-from model_validation.pairwise_avg_min_cos import PairwiseAvgMinCos
+from model_validation.pairwise_avg_cos_similarity import PairwiseAvgMinCos
 from model_validation.pairwise_avg_min_dist import PairwiseAvgMinDist
 from model_validation.tsne_all import TsneAll
 from metrics_utils.data_utils import *
