@@ -1,14 +1,23 @@
 import argparse
+import os
 
+from Metrics.metrics_utils.data_utils import *
 from avg_min_dist import AvgMinDist
 from clusters_couple_ratio import ClusterCoupleRatio
-from data_utils import *
+
 
 
 METRICS = {
     "avg_min_dist": AvgMinDist,
     "cluster_couple_ratio": ClusterCoupleRatio
 }
+
+
+def get_absolute_path(dir_type):
+    script_path = os.path.abspath(__file__)
+    script_dir = os.path.dirname(script_path)
+    parent_dir = os.path.dirname(script_dir)
+    return os.path.join(parent_dir, dir_type)
 
 
 def parse_key_value_pairs(s):

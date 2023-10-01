@@ -1,24 +1,15 @@
 import os
 import numpy as np
 import torch
-from scipy.spatial.distance import cdist
-from generate_histogram import generate_double_histogram
+
+from Metrics.metrics_utils.data_visualization.generate_histogram import generate_double_histogram
+from Metrics.metrics_utils.metrics_utils import find_min_dist
 from scipy.stats import mannwhitneyu
 from scipy import stats
 
+
 # CUDA device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
-
-def _find_closest_exp(vector, part2):
-    vector = vector.clone().detach()
-    part2 = part2.clone().detach()
-
-    distances = cdist(vector.unsqueeze(0), part2, metric='euclidean')
-    distances = torch.tensor(distances, dtype=torch.float64, device=device)
-    min_distance = torch.min(distances)
-    return min_distance.item()
-
 
 def _run_metric_couple(part1, part2):
     part1 = torch.tensor(part1, dtype=torch.float64, device=device)
@@ -26,11 +17,11 @@ def _run_metric_couple(part1, part2):
 
     min_distances1 = torch.zeros(len(part1), dtype=torch.float64, device=device)
     for i, vector in enumerate(part1):
-        min_distances1[i] = _find_closest_exp(vector, part2)
+        min_distances1[i] = find_min_dist(vector, part2)
 
     min_distances2 = torch.zeros(len(part2), dtype=torch.float64, device=device)
     for i, vector in enumerate(part2):
-        min_distances2[i] = _find_closest_exp(vector, part1)
+        min_distances2[i] = find_min_dist(vector, part1)
 
     mean_min_distances1 = torch.mean(min_distances1)
     mean_min_distances2 = torch.mean(min_distances2)
@@ -57,7 +48,7 @@ class AvgMinDist:
         #print("Couples: ", couples_results.values(), sum(couples_results.values())/len(couples_results.values()))
         #print("Strangers: ", strangers_results.values(), sum(strangers_results.values())/len(strangers_results.values()))
 
-        print("Calculate statistics:")
+        print("\nCalculate statistics:")
         couple_res = [val for val in couples_results.values()]
         strangers_res = [val for val in strangers_results.values()]
 
@@ -86,5 +77,6 @@ class AvgMinDist:
 
         print("Creating Histogram")
         output_path = os.path.join(result_path, "hist_avg_min_dist.png")
-        generate_double_histogram(list(couples_results.values()), list(strangers_results.values()), output_path)
+        output_title = "Average Minimal Distance Histogram"
+        generate_double_histogram(list(couples_results.values()), list(strangers_results.values()), output_title, output_path)
 
