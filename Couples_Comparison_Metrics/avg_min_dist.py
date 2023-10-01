@@ -17,7 +17,7 @@ def _run_metric_couple(part1, part2, threshold=1):
     part2 = torch.tensor(part2, dtype=torch.float64, device=device)
 
     if torch.cuda.is_available():
-        find_min_dist_cuda(part1, part2)
+        min_distances = find_min_dist_cuda(part1, part2)
     else:
         min_distances = torch.zeros(len(part1), dtype=torch.float64, device=device)
         for i, vector in enumerate(part1):

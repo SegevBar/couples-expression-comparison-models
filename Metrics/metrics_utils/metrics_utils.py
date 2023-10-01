@@ -24,7 +24,7 @@ def find_min_dist_cuda(part1, part2, batch_size=1000):
     return torch.cat(min_distances, dim=0)
 
 
-def find_min_cosine(vector, vector_tensor):
+def find_cos_similarity(vector, vector_tensor):
     vector = vector.clone().detach()
     vector_tensor = vector_tensor.clone().detach()
 
@@ -32,7 +32,7 @@ def find_min_cosine(vector, vector_tensor):
     return cosine_similarities.min().item()
 
 
-def find_min_cos_cuda(part1, part2, batch_size=1000):
+def find_cos_similarity_cuda(part1, part2, batch_size=1000):
     matrix1_normalized = part1 / part1.norm(dim=1)[:, None]
     matrix2_normalized = part2 / part2.norm(dim=1)[:, None]
     max_cosine_similarities = torch.zeros(part1.shape[0], device='cuda')
