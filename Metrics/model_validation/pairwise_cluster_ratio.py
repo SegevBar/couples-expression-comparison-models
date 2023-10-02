@@ -2,7 +2,7 @@ import os
 import numpy as np
 from metrics_utils.metrics_utils import perform_dbscan_clustering
 from metrics_utils.data_visualization.generate_heatmap import generate_heatmap
-from .pairwise_avg_min_dist import pairwise_distances
+from model_validation.pairwise_avg_min_dist import pairwise_distances
 import torch
 
 

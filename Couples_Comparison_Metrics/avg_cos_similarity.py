@@ -2,9 +2,9 @@ import os
 import torch
 import numpy as np
 
-from metrics_utils.metrics_utils import find_cos_similarity_cuda, find_cos_similarity
-from metrics_utils.data_visualization.generate_histogram import generate_double_histogram
-from metrics_utils.statistical_tests import perform_mannwhitneyu_test
+from Metrics.metrics_utils.metrics_utils import find_cos_similarity_cuda, find_cos_similarity
+from Metrics.metrics_utils.data_visualization.generate_histogram import generate_double_histogram
+from Metrics.metrics_utils.statistical_tests import perform_mannwhitneyu_test
 
 # CUDA device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -47,14 +47,14 @@ class AvgMinCos:
             res = _run_metric_couple(participants_exp_rep[str(coupling[i][0])],
                                                          participants_exp_rep[str(coupling[i][1])])
             for j in range(len(thresholds)):
-                couples_results[i][j] = _get_mean_by_threshold(res, thresholds[j])
+                couples_results[j][i] = _get_mean_by_threshold(res, thresholds[j])
 
         for i in range(strangers):
             print("calculating strangers", strangers[i])
             res = _run_metric_couple(participants_exp_rep[str(strangers[i][0])],
                                                            participants_exp_rep[str(strangers[i][1])])
             for j in range(len(thresholds)):
-                strangers_results[i][j] = _get_mean_by_threshold(res, thresholds[j])
+                strangers_results[j][i] = _get_mean_by_threshold(res, thresholds[j])
 
         print("\nCalculate statistics:")
         for i in range(len(thresholds)):

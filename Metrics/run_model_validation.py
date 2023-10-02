@@ -1,4 +1,4 @@
-from model_validation.dbscan_cluster_ratio import DbscanCluster
+from model_validation.pairwise_cluster_ratio import DbscanCluster
 from model_validation.pairwise_avg_cos_similarity import PairwiseAvgMinCos
 from model_validation.pairwise_avg_min_dist import PairwiseAvgMinDist
 from model_validation.tsne_all import TsneAll
