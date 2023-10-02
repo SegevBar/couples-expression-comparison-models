@@ -41,7 +41,7 @@ def _create_histogram(results1, results2, output_path, output_title):
 
 class AvgMinDist:
     @staticmethod
-    def run_metric(coupling, strangers, participants_exp_rep, result_path, thresholds=(1.0, 0.9, 0.5)):
+    def run_metric(coupling, strangers, participants_exp_rep, result_path, thresholds=(0.9)):
         print("-" * 150)
         print("\nRunning Average Minimal Distance Metric")
 

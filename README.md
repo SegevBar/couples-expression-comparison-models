@@ -45,16 +45,6 @@ We provided you a jupiter notebook prepared for running in Google Colab named **
 **Make sure to downlaod the resuls files! They won't be saved in the colab environment.**
 
 
-## Project Structure 
-This repo has two subpackages - `expression represantation generator` and `couples expression comparison matrics` 
-
-### expression represantation generator
-
-
-### couples expression comparison matrics
-
-
-
 
 ## Citation 
 

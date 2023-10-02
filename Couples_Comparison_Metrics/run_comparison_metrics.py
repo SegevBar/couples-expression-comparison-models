@@ -1,15 +1,17 @@
 import argparse
 import os
 
+from Couples_Comparison_Metrics.avg_cos_similarity import AvgCosSim
+from Couples_Comparison_Metrics.run_tsne import TSNE
 from Metrics.metrics_utils.data_utils import *
 from avg_min_dist import AvgMinDist
-from clusters_couple_ratio import ClusterCoupleRatio
-
-
+from clusters_couple_ratio import AvgClusterRatio
 
 METRICS = {
     "avg_min_dist": AvgMinDist,
-    "cluster_couple_ratio": ClusterCoupleRatio
+    "avg_cos_similarity": AvgCosSim,
+    "cluster_couple_ratio": AvgClusterRatio,
+    "tsne":TSNE
 }
 
 
@@ -47,7 +49,14 @@ def main(args):
 
     # compute metrics
     for metric in run_metrics:
-        METRICS[metric].run_metric(couples, strangers, participants_exp_rep, result_path)
+        if metric == "avg_min_dist":
+            AvgMinDist.run_metric(couples, strangers, participants_exp_rep, result_path, thresholds=(0.9))
+        elif metric == "avg_cos_similarity":
+            AvgCosSim.run_metric(couples, strangers, participants_exp_rep, result_path, thresholds=(0.9))
+        elif metric == "cluster_couple_ratio":
+            AvgClusterRatio.run_metric(couples, strangers, participants_exp_rep, result_path, factor=(10.0))
+        if metric != "tsne":
+            METRICS[metric].run_metric(participants_exp_rep, result_path)
 
 
 if __name__ == '__main__':

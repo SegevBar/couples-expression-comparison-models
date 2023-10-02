@@ -44,15 +44,28 @@ while [[ ! "$answer_comparison_metrics" =~ ^[YyNn]$ ]]; do
 done
 if [[ "$answer_comparison_metrics" =~ ^[Yy]$ ]]; then
     answer_avg_min_dist=""
-    while [[ ! "$answer_euclidean" =~ ^[YyNn]$ ]]; do
+    while [[ ! "$answer_avg_min_dist" =~ ^[YyNn]$ ]]; do
         read -p "Do you want to run Average Minimal Distance metric? (y/n) " answer_avg_min_dist
-        if [[ ! "$answer_euclidean" =~ ^[YyNn]$ ]]; then
+        if [[ ! "$answer_avg_min_dist" =~ ^[YyNn]$ ]]; then
             echo "Invalid input! Please answer with y or n."
         else
-            if [[ "$answer_euclidean" =~ ^[Yy]$ ]]; then
+            if [[ "$answer_avg_min_dist" =~ ^[Yy]$ ]]; then
                 sed -i "/AVERAGE_MINIMAL_DISTANCE=/c\AVERAGE_MINIMAL_DISTANCE=\"$TRUE\"" config.cfg
             else
                 sed -i "/AVERAGE_MINIMAL_DISTANCE=/c\AVERAGE_MINIMAL_DISTANCE=\"$FALSE\"" config.cfg
+            fi
+        fi
+    done
+    answer_avg_cos_similarity=""
+    while [[ ! "$answer_avg_cos_similarity" =~ ^[YyNn]$ ]]; do
+        read -p "Do you want to run Average Minimal Distance metric? (y/n) " answer_avg_cos_similarity
+        if [[ ! "$answer_avg_cos_similarity" =~ ^[YyNn]$ ]]; then
+            echo "Invalid input! Please answer with y or n."
+        else
+            if [[ "$answer_avg_cos_similarity" =~ ^[Yy]$ ]]; then
+                sed -i "/AVERAGE_COSINE_SIMILARITY=/c\AVERAGE_COSINE_SIMILARITY=\"$TRUE\"" config.cfg
+            else
+                sed -i "/AVERAGE_COSINE_SIMILARITY=/c\AVERAGE_COSINE_SIMILARITY=\"$FALSE\"" config.cfg
             fi
         fi
     done
@@ -66,6 +79,19 @@ if [[ "$answer_comparison_metrics" =~ ^[Yy]$ ]]; then
                 sed -i "/CLUSTER_COUPLE_RATIO=/c\CLUSTER_COUPLE_RATIO=\"$TRUE\"" config.cfg
             else
                 sed -i "/CLUSTER_COUPLE_RATIO=/c\CLUSTER_COUPLE_RATIO=\"$FALSE\"" config.cfg
+            fi
+        fi
+    done
+    answer_tsne=""
+    while [[ ! "$answer_tsne" =~ ^[YyNn]$ ]]; do
+        read -p "Do you want to run Average Minimal Distance metric? (y/n) " answer_tsne
+        if [[ ! "$answer_tsne" =~ ^[YyNn]$ ]]; then
+            echo "Invalid input! Please answer with y or n."
+        else
+            if [[ "$answer_tsne" =~ ^[Yy]$ ]]; then
+                sed -i "/TSNE=/c\TSNE=\"$TRUE\"" config.cfg
+            else
+                sed -i "/TSNE=/c\TSNE=\"$FALSE\"" config.cfg
             fi
         fi
     done

@@ -34,9 +34,9 @@ def _create_histogram(results1, results2, output_path, output_title):
     generate_double_histogram(results1, results2, output_title, output_path)
 
 
-class AvgMinCos:
+class AvgCosSim:
     @staticmethod
-    def run_metric(coupling, strangers, participants_exp_rep, result_path, thresholds=(1.0, 0.9, 0.5)):
+    def run_metric(coupling, strangers, participants_exp_rep, result_path, thresholds=(0.9)):
         print("-" * 150)
         print("Running Average Minimal Cosine Similarity Metric\n")
 

@@ -1,7 +1,5 @@
 import os
-import sys
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from metrics_utils.data_visualization.generate_tsne import generate_tsne
 
 
