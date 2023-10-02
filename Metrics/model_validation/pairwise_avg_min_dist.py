@@ -11,7 +11,7 @@ from metrics_utils.metrics_utils import find_min_dist_cuda, find_min_dist
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
-def _pairwise_distances(part1, part2):
+def pairwise_distances(part1, part2):
     part1 = torch.tensor(part1, dtype=torch.float64, device=device)
     part2 = torch.tensor(part2, dtype=torch.float64, device=device)
 
@@ -53,9 +53,9 @@ class PairwiseAvgMinDist:
                 print(f"calculating pair {count}/{n ** 2}: {all_part[i]} - {all_part[j]}")
                 if i == j:
                     all_data = participants_exp_rep[str(all_part[i])]
-                    res = _pairwise_distances(all_data[:len(all_data)//2], all_data[len(all_data)//2:])
+                    res = pairwise_distances(all_data[:len(all_data)//2], all_data[len(all_data)//2:])
                 else:
-                    res = _pairwise_distances(participants_exp_rep[str(all_part[i])], participants_exp_rep[str(all_part[j])])
+                    res = pairwise_distances(participants_exp_rep[str(all_part[i])], participants_exp_rep[str(all_part[j])])
                 results_100[i][j] = _get_mean_by_threshold(res, 1.0)
                 results_90[i][j] = _get_mean_by_threshold(res, 0.9)
                 results_50[i][j] = _get_mean_by_threshold(res, 0.5)

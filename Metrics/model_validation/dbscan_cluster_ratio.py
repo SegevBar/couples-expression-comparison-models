@@ -2,12 +2,15 @@ import os
 import numpy as np
 from metrics_utils.metrics_utils import perform_dbscan_clustering
 from metrics_utils.data_visualization.generate_heatmap import generate_heatmap
+from .pairwise_avg_min_dist import pairwise_distances
+import torch
 
 
-def _pairwise_dbscan_cluster_ratio(part1, part2):
+def _pairwise_dbscan_cluster_ratio(part1, part2, eps=1.0):
     original_sets = [part1, part2]
     combined_data = np.vstack((part1, part2))
-    cluster_labels = perform_dbscan_clustering(combined_data)
+    cluster_labels = perform_dbscan_clustering(combined_data, eps)
+
     cluster_count = [_cluster_count(cluster_labels, cluster_idx, original_sets, combined_data) for cluster_idx in
                       np.unique(cluster_labels)]
     cluster_ratio = np.array([min(set1_count/total_count, set2_count/total_count) for set1_count, set2_count, total_count in cluster_count])
@@ -30,14 +33,32 @@ def _cluster_centroid(labels, cluster_idx, combined_data):
     return centroid
 
 
+def _find_eps(all_part, participants_exp_rep):
+    print("Calculating DBSCAN epsilon")
+    n = len(all_part)
+    res = np.zeros((n, n))
+    for i in range(n):
+        for j in range(n):
+            if i == j:
+                all_data = participants_exp_rep[str(all_part[i])]
+                tmp = pairwise_distances(all_data[:len(all_data) // 2], all_data[len(all_data) // 2:])
+            else:
+                tmp = pairwise_distances(participants_exp_rep[str(all_part[i])],
+                                          participants_exp_rep[str(all_part[j])])
+            res[i][j] = torch.mean(tmp)
+    return float(np.mean(res))
+
+
 class DbscanCluster:
     @staticmethod
     def run_metric(all_part, participants_exp_rep, result_path):
         print("-" * 150)
         print("Running dbscan clustering couples ratio metric\n")
+        eps = _find_eps(all_part, participants_exp_rep)
 
         n = len(all_part)
-        results = np.zeros((n, n))
+        results_1 = np.zeros((n, n))
+        results_10 = np.zeros((n, n))
 
         count = 0
         for i in range(n):
@@ -47,12 +68,16 @@ class DbscanCluster:
 
                 if i == j:
                     all_data = participants_exp_rep[str(all_part[i])]
-                    res = _pairwise_dbscan_cluster_ratio(all_data[:len(all_data) // 2], all_data[len(all_data) // 2:])
+                    results_1[i][j] = _pairwise_dbscan_cluster_ratio(all_data[:len(all_data) // 2], all_data[len(all_data) // 2:], eps)
+                    results_10[i][j] = _pairwise_dbscan_cluster_ratio(all_data[:len(all_data) // 2], all_data[len(all_data) // 2:], eps*10.0)
                 else:
-                    res = _pairwise_dbscan_cluster_ratio(participants_exp_rep[str(all_part[i])],
-                                           participants_exp_rep[str(all_part[j])])
-                results[i][j] = res
+                    results_1[i][j] = _pairwise_dbscan_cluster_ratio(participants_exp_rep[str(all_part[i])],
+                                           participants_exp_rep[str(all_part[j])], eps)
+                    results_10[i][j] = _pairwise_dbscan_cluster_ratio(participants_exp_rep[str(all_part[i])],
+                                                                     participants_exp_rep[str(all_part[j])], eps*10.0)
 
         print("Creating DBSCAN Clustering Couples Ratio Heatmaps")
-        generate_heatmap(results, "DBSCAN Clustering Couples Ratio Heatmap", os.path.join(result_path, "heatmap_dbscan_cluster_ratio.png"))
+        generate_heatmap(results_1, "DBSCAN Clustering Couples Ratio Heatmap eps", os.path.join(result_path, "heatmap_dbscan_cluster_ratio_1.png"))
+        generate_heatmap(results_10, "DBSCAN Clustering Couples Ratio Heatmap eps*10",
+                         os.path.join(result_path, "heatmap_dbscan_cluster_ratio_10.png"))
 
