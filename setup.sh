@@ -32,7 +32,9 @@ echo ""
 # update configured comparison metrics
 echo "Configured comparison metrics:"
 echo "    Average Minimal Distance: ${AVERAGE_MINIMAL_DISTANCE}"
+echo "    Average Cosine Similarity: ${AVERAGE_COSINE_SIMILARITY}"
 echo "    Cluster Couple Ratio: ${CLUSTER_COUPLE_RATIO}"
+echo "    t-SNE: ${TSNE}"
 echo ""
 
 answer_comparison_metrics=""
