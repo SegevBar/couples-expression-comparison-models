@@ -17,7 +17,7 @@ def generate_tsne(matrix, title, file_path, labels=None):
     plt.title(title)
     plt.xlabel('t-SNE Dimension 1')
     plt.ylabel('t-SNE Dimension 2')
-    plt.legend()
+    plt.legend(loc='upper right')
     print("saving t-SNE plot")
     plt.savefig(file_path, dpi=300)
     plt.show()

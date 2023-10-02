@@ -1,5 +1,4 @@
-from model_validation.dbscan_cluster import DbscanCluster
-from model_validation.nearest_neighbors_ratio import NearNeighborsRatio
+from model_validation.dbscan_cluster_ratio import DbscanCluster
 from model_validation.pairwise_avg_cos_similarity import PairwiseAvgMinCos
 from model_validation.pairwise_avg_min_dist import PairwiseAvgMinDist
 from model_validation.tsne_all import TsneAll
@@ -33,12 +32,11 @@ def main():
     sample_couple, couple_labels = get_couple_exp_rep_and_label(participants_exp_rep, couples[0][0], couples[0][1])
 
     # run metrics
-    # TsneAll.run_metric(all_exp_rep, part_labels, result_path)
     # TsneAll.run_metric_couple(sample_couple, couple_labels, result_path)
+    TsneAll.run_metric(all_exp_rep, part_labels, result_path)
     PairwiseAvgMinDist.run_metric(all_part, participants_exp_rep, result_path)
-    # PairwiseAvgMinCos.run_metric(all_part, participants_exp_rep, result_path)
-    # DbscanCluster.run_metric()
-    # NearNeighborsRatio.run_metric()
+    PairwiseAvgMinCos.run_metric(all_part, participants_exp_rep, result_path)
+    DbscanCluster.run_metric(all_part, participants_exp_rep, result_path)
 
 
 if __name__ == '__main__':

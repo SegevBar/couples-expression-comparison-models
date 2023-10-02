@@ -1,6 +1,8 @@
 from scipy.spatial.distance import cdist
 import torch.nn.functional as F
 import torch
+from sklearn.cluster import DBSCAN
+from sklearn.neighbors import NearestNeighbors
 
 # CUDA device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -43,3 +45,12 @@ def find_cos_similarity_cuda(part1, part2, batch_size=1000):
         batch_max_similarity, _ = batch_similarity.max(dim=1)
         max_cosine_similarities[i:i + batch_size] = batch_max_similarity
     return max_cosine_similarities
+
+
+def perform_dbscan_clustering(data, eps=0.5, samples=10):
+    dbscan = DBSCAN(eps=eps, min_samples=samples)
+    dbscan.fit(data)
+    labels = dbscan.labels_
+    return labels
+
+

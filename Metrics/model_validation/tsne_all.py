@@ -8,7 +8,8 @@ from metrics_utils.data_visualization.generate_tsne import generate_tsne
 class TsneAll:
     @staticmethod
     def run_metric(all_exp_rep, part_labels, result_path):
-        print("\nRunning t-SNE metric")
+        print("-" * 150)
+        print("Running t-SNE metric\n")
         output_path = os.path.join(result_path, "all_points_tsne.png")
         output_title = "All Expressions t-SNE"
 

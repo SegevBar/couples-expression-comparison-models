@@ -39,7 +39,7 @@ class PairwiseAvgMinDist:
     @staticmethod
     def run_metric(all_part, participants_exp_rep, result_path):
         print("-" * 150)
-        print("\nRunning pairwise average minimal distance metric")
+        print("Running pairwise average minimal distance metric\n")
 
         n = len(all_part)
         results_100 = np.zeros((n, n))
@@ -61,7 +61,7 @@ class PairwiseAvgMinDist:
                 results_50[i][j] = _get_mean_by_threshold(res, 0.5)
 
 
-        print("Creating Heatmaps")
+        print("Creating Average Minimal Distance Heatmaps")
         _create_heatmap(results_100, os.path.join(result_path, "heatmap_avg_min_dist_100.png"),
                         "Average All Minimal Distance Heatmap")
         _create_heatmap(results_90, os.path.join(result_path, "heatmap_avg_min_dist_90.png"),

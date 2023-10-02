@@ -40,7 +40,7 @@ class PairwiseAvgMinCos:
     @staticmethod
     def run_metric(all_part, participants_exp_rep, result_path):
         print("-" * 150)
-        print("\nRunning pairwise average minimal cosine similarity metric")
+        print("Running pairwise average minimal cosine similarity metric\n")
 
         n = len(all_part)
         results_100 = np.zeros((n, n))
@@ -57,12 +57,12 @@ class PairwiseAvgMinCos:
                     res = _pairwise_cosine(all_data[:len(all_data) // 2], all_data[len(all_data) // 2:])
 
                 else:
-                    res = _pairwise_cosine(participants_exp_rep[str(all_part[i])], participants_exp_rep[str(all_part[j])], threshold=1)
+                    res = _pairwise_cosine(participants_exp_rep[str(all_part[i])], participants_exp_rep[str(all_part[j])])
                 results_100[i][j] = _get_mean_by_threshold(res, 1.0)
                 results_90[i][j] = _get_mean_by_threshold(res, 0.9)
                 results_50[i][j] = _get_mean_by_threshold(res, 0.5)
 
-        print("Creating Heatmaps")
+        print("Creating Cosine Similarity Heatmaps")
         _create_heatmap(results_100, os.path.join(result_path, "heatmap_avg_cos_100.png"),
                         "Average All Cosine Similarity Heatmap")
         _create_heatmap(results_90, os.path.join(result_path, "heatmap_avg_cos_90.png"),
