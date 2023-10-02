@@ -11,8 +11,9 @@ def _pairwise_dbscan_cluster_ratio(part1, part2):
     cluster_count = [_cluster_count(cluster_labels, cluster_idx, original_sets, combined_data) for cluster_idx in
                       np.unique(cluster_labels)]
     cluster_ratio = np.array([min(set1_count/total_count, set2_count/total_count) for set1_count, set2_count, total_count in cluster_count])
-    weights = np.array([total_count for set1_count, set2_count, total_count in cluster_count])
-    return np.average(cluster_ratio, weights=weights)
+    # weights = np.array([total_count for set1_count, set2_count, total_count in cluster_count])
+    # return np.average(cluster_ratio, weights=weights)
+    return np.mean(cluster_ratio)
 
 
 def _cluster_count(labels, cluster_idx, original_sets, combined_data):
@@ -43,6 +44,7 @@ class DbscanCluster:
             for j in range(n):
                 count += 1
                 print(f"calculating pair {count}/{n ** 2}: {all_part[i]} - {all_part[j]}")
+
                 if i == j:
                     all_data = participants_exp_rep[str(all_part[i])]
                     res = _pairwise_dbscan_cluster_ratio(all_data[:len(all_data) // 2], all_data[len(all_data) // 2:])
