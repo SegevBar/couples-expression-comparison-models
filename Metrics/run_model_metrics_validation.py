@@ -1,7 +1,7 @@
+from model_validation.tsne import TsneAll
 from model_validation.pairwise_cluster_ratio import DbscanCluster
 from model_validation.pairwise_avg_cos_similarity import PairwiseAvgMinCos
 from model_validation.pairwise_avg_min_dist import PairwiseAvgMinDist
-from model_validation.tsne_all import TsneAll
 from metrics_utils.data_utils import *
 
 
@@ -20,7 +20,7 @@ def main():
     coupling_path = os.path.join(results_dir, 'coupling.csv')
 
     # create a result folder
-    result_path = os.path.join(results_dir, "model_validation_results")
+    result_path = os.path.join(results_dir, "model_metric_validation_results")
     os.makedirs(result_path, exist_ok=True)
 
     # load data - expressions representations and coupling

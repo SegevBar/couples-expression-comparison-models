@@ -1,7 +1,8 @@
 import os
 import torch
 import numpy as np
-
+import sys
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from Metrics.metrics_utils.metrics_utils import find_cos_similarity_cuda, find_cos_similarity
 from Metrics.metrics_utils.data_visualization.generate_histogram import generate_double_histogram
 from Metrics.metrics_utils.statistical_tests import perform_mannwhitneyu_test
@@ -40,30 +41,30 @@ class AvgCosSim:
         print("-" * 150)
         print("Running Average Minimal Cosine Similarity Metric\n")
 
-        couples_results = np.zeros((len(thresholds), len(coupling)))
-        strangers_results = np.zeros((len(thresholds), len(strangers)))
-        for i in range(coupling):
+        couples_results = np.zeros((1, len(coupling)))
+        strangers_results = np.zeros((1, len(strangers)))
+        for i in range(len(coupling)):
             print("calculating couple", coupling[i])
             res = _run_metric_couple(participants_exp_rep[str(coupling[i][0])],
                                                          participants_exp_rep[str(coupling[i][1])])
-            for j in range(len(thresholds)):
-                couples_results[j][i] = _get_mean_by_threshold(res, thresholds[j])
+            for j in range(1):
+                couples_results[j][i] = _get_mean_by_threshold(res, 0.9)
 
-        for i in range(strangers):
+        for i in range(len(strangers)):
             print("calculating strangers", strangers[i])
             res = _run_metric_couple(participants_exp_rep[str(strangers[i][0])],
                                                            participants_exp_rep[str(strangers[i][1])])
-            for j in range(len(thresholds)):
-                strangers_results[j][i] = _get_mean_by_threshold(res, thresholds[j])
+            for j in range(1):
+                strangers_results[j][i] = _get_mean_by_threshold(res, 0.9)
 
         print("\nCalculate statistics:")
-        for i in range(len(thresholds)):
-            print(f"Case threshold = {thresholds[i]}:")
+        for i in range(1):
+            print(f"Case threshold = {0.9}:")
             couple_res = couples_results[i]
             strangers_res = strangers_results[i]
             perform_mannwhitneyu_test("Couples", couple_res, "Strangers", strangers_res)
 
             print("Creating Histogram")
-            _create_histogram(couple_res, strangers_res, f"Average {thresholds[i] * 100}% Cosine Similarity Histogram",
-                              os.path.join(result_path, f"hist_avg_cos_sim_{thresholds[i] * 100}.png"))
+            _create_histogram(couple_res, strangers_res, f"Average {0.9 * 100}% Cosine Similarity Histogram",
+                              os.path.join(result_path, f"hist_avg_cos_sim_{0.9 * 100}.png"))
 

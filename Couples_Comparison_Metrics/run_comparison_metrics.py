@@ -1,5 +1,4 @@
 import argparse
-import os
 
 from Couples_Comparison_Metrics.avg_cos_similarity import AvgCosSim
 from Couples_Comparison_Metrics.run_tsne import TSNE
