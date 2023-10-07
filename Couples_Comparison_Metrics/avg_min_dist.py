@@ -1,7 +1,8 @@
-import os
 import numpy as np
 import torch
-
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from Metrics.metrics_utils.data_visualization.generate_histogram import generate_double_histogram
 from Metrics.metrics_utils.metrics_utils import find_min_dist, find_min_dist_cuda
 from Metrics.metrics_utils.statistical_tests import perform_mannwhitneyu_test
@@ -32,7 +33,7 @@ def _get_mean_by_threshold(min_distances, threshold=1.0):
     return torch.mean(sorted_values[:num_to_keep])
 
 
-def _create_histogram(results1, results2, output_path, output_title):
+def _create_histogram(results1, results2, output_title, output_path):
     generate_double_histogram(results1, results2, output_title, output_path)
 
 
@@ -67,5 +68,5 @@ class AvgMinDist:
 
             print("Creating Histogram")
             _create_histogram(couple_res, strangers_res, f"Average {0.9 * 100}% Minimal Distance Histogram",
-                              os.path.join(result_path, f"hist_avg_min_dist_{0.9 * 100}.png"))
+                              os.path.join(result_path, "hist_avg_min_dist_90.png"))
 

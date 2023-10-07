@@ -1,7 +1,9 @@
 import argparse
-
-from Couples_Comparison_Metrics.avg_cos_similarity import AvgCosSim
-from Couples_Comparison_Metrics.run_tsne import TSNE
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from avg_cos_similarity import AvgCosSim
+from run_tsne import TSNE
 from Metrics.metrics_utils.data_utils import *
 from avg_min_dist import AvgMinDist
 from clusters_couple_ratio import AvgClusterRatio

@@ -37,7 +37,7 @@ def _cluster_centroid(labels, cluster_idx, combined_data):
     return centroid
 
 
-def _create_histogram(results1, results2, output_path, output_title):
+def _create_histogram(results1, results2, output_title, output_path):
     generate_double_histogram(results1, results2, output_title, output_path)
 
 
@@ -62,30 +62,30 @@ class AvgClusterRatio:
     def run_metric(coupling, strangers, participants_exp_rep, result_path, factor=(1.0, 10.0)):
         print("-" * 150)
         print("Running Cluster Couple Ratio Metric\n")
-        eps = _find_eps(get_all_participants(coupling), participants_exp_rep)
+        # eps = _find_eps(get_all_participants(coupling), participants_exp_rep)
 
-        couples_results = np.zeros((len(factor), len(coupling)))
-        strangers_results = np.zeros((len(factor), len(strangers)))
+        couples_results = np.zeros((len(coupling)))
+        strangers_results = np.zeros((len(strangers)))
 
-        for i in range(len(factor)):
-            epsilon = eps*factor[i]
-            for j in range(coupling):
-                print("calculating couple", coupling[i])
-                couples_results[i][j] = _run_metric_couple(participants_exp_rep[str(coupling[j][0])], participants_exp_rep[str(coupling[j][1])], epsilon)
+        # for i in range(len(factor)):
+            # epsilon = eps*factor[i]
+        for j in range(coupling):
+            print("calculating couple", coupling[i])
+            couples_results[i][j] = _run_metric_couple(participants_exp_rep[str(coupling[j][0])], participants_exp_rep[str(coupling[j][1])], 2.0)
 
-            for j in range(strangers):
-                print("calculating strangers", strangers[i])
-                strangers_results[i][j] = _run_metric_couple(participants_exp_rep[str(strangers[j][0])], participants_exp_rep[str(strangers[j][1])], epsilon)
+        for j in range(strangers):
+            print("calculating strangers", strangers[i])
+            strangers_results[i][j] = _run_metric_couple(participants_exp_rep[str(strangers[j][0])], participants_exp_rep[str(strangers[j][1])], 2.0)
 
         print("\nCalculate statistics:")
-        for i in range(len(factor)):
-            print(f"Case eps*{factor[i]}:")
-            couple_res = couples_results[i]
-            strangers_res = strangers_results[i]
-            perform_mannwhitneyu_test("Couples", couple_res, "Strangers", strangers_res)
+        # for i in range(len(factor)):
+        # print(f"Case eps*{factor[i]}:")
+        couple_res = couples_results[i]
+        strangers_res = strangers_results[i]
+        perform_mannwhitneyu_test("Couples", couple_res, "Strangers", strangers_res)
 
-            print("Creating Histogram")
-            _create_histogram(couple_res, strangers_res, f"Average eps*{factor[i]} Cosine Similarity Histogram",
-                              os.path.join(result_path, f"hist_avg_cos_sim_eps{factor[i]}.png"))
+        print("Creating Histogram")
+        _create_histogram(couple_res, strangers_res, "Average eps=2 Cosine Similarity Histogram",
+                          os.path.join(result_path, "hist_avg_cos_sim_2.png"))
 
 
