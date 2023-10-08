@@ -38,4 +38,4 @@ python expressions_represantation_generator.py -t $current_exp_rep_generator -r 
 # Run Comparisons Metrics
 echo "Calculating Metrics:"
 cd ../Couples_Comparison_Metrics
-python run_comparison_metrics.py -r "spectre" --metrics "avg_min_dist:${AVERAGE_MINIMAL_DISTANCE} avg_cos_similarity:${AVERAGE_COSINE_SIMILARITY} cluster_couple_ratio:${CLUSTER_COUPLE_RATIO} tsne:${TSNE}"
+python run_comparison_metrics.py -r $result_folder_name --metrics "avg_min_dist:${AVERAGE_MINIMAL_DISTANCE} avg_cos_similarity:${AVERAGE_COSINE_SIMILARITY} cluster_couple_ratio:${CLUSTER_COUPLE_RATIO} tsne:${TSNE}"
