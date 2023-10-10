@@ -1,4 +1,5 @@
 import os
+import csv
 import pandas as pd
 import numpy as np
 
@@ -52,8 +53,13 @@ def get_couple_exp_rep_and_label(participants_exp_rep, part1, part2):
 
 
 def get_couples(coupling_path):
-    df = pd.read_csv(coupling_path, header=None, names=['user_id_1', 'user_id_2'])
-    couples = list(zip(df['user_id_1'], df['user_id_2']))
+    couples = []
+    with open(coupling_path, 'r', newline='') as file:
+        csv_reader = csv.reader(file)
+        for row in csv_reader:
+            couples.append(row)
+    # df = pd.read_csv(coupling_path, header=None, names=['user_id_1', 'user_id_2'])
+    # couples = [tuple(row) for row in df.values]
     return couples
 
 
