@@ -12,7 +12,7 @@ from Metrics.metrics_utils.statistical_tests import perform_mannwhitneyu_test
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
-def _run_metric_couple(part1, part2, threshold=1):
+def _run_metric_couple(part1, part2):
     part1 = torch.tensor(part1, dtype=torch.float64, device=device)
     part2 = torch.tensor(part2, dtype=torch.float64, device=device)
 
@@ -26,7 +26,7 @@ def _run_metric_couple(part1, part2, threshold=1):
     return min_distances
 
 
-def _get_mean_by_threshold(min_distances, threshold=1.0):
+def _get_mean_by_threshold(min_distances, threshold):
     sorted_values, sorted_indices = torch.sort(min_distances)
     num_to_keep = int(len(sorted_values) * threshold)
 
@@ -39,34 +39,30 @@ def _create_histogram(results1, results2, output_title, output_path):
 
 class AvgMinDist:
     @staticmethod
-    def run_metric(coupling, strangers, participants_exp_rep, result_path, thresholds=(0.9)):
+    def run_metric(coupling, strangers, participants_exp_rep, result_path, threshold):
         print("-" * 150)
-        print("\nRunning Average Minimal Distance Metric")
+        print("\nRunning Average Minimal Distance Metric\n")
 
-        couples_results = np.zeros((1, len(coupling)))
-        strangers_results = np.zeros((1, len(strangers)))
+        couples_results = np.zeros((len(coupling)))
+        strangers_results = np.zeros((len(strangers)))
+
         for i in range(len(coupling)):
             print("calculating couple", coupling[i])
             res = _run_metric_couple(participants_exp_rep[str(coupling[i][0])],
                                      participants_exp_rep[str(coupling[i][1])])
-            for j in range(1):
-                couples_results[j][i] = _get_mean_by_threshold(res, 0.9)
+            couples_results[i] = _get_mean_by_threshold(res, threshold)
 
         for i in range(len(strangers)):
             print("calculating strangers", strangers[i])
             res = _run_metric_couple(participants_exp_rep[str(strangers[i][0])],
                                      participants_exp_rep[str(strangers[i][1])])
-            for j in range(1):
-                strangers_results[j][i] = _get_mean_by_threshold(res, 0.9)
+            strangers_results[i] = _get_mean_by_threshold(res, threshold)
 
         print("\nCalculate statistics:")
-        for i in range(1):
-            print(f"Case threshold = 0.9:")
-            couple_res = couples_results[i]
-            strangers_res = strangers_results[i]
-            perform_mannwhitneyu_test("Couples", couple_res, "Strangers", strangers_res)
+        print(f"Case threshold = {threshold}:")
+        perform_mannwhitneyu_test("Couples", couples_results, "Strangers", strangers_results)
 
-            print("Creating Histogram")
-            _create_histogram(couple_res, strangers_res, f"Average {0.9 * 100}% Minimal Distance Histogram",
-                              os.path.join(result_path, "hist_avg_min_dist_90.png"))
+        print("\nCreating Histogram")
+        _create_histogram(couples_results, strangers_results, f"Average {threshold * 100}% Minimal Distance Histogram",
+                          os.path.join(result_path, "hist_avg_min_dist_90.png"))
 

@@ -4,15 +4,13 @@ import numpy as np
 
 from Metrics.metrics_utils.data_visualization.generate_histogram import generate_double_histogram
 from Metrics.metrics_utils.statistical_tests import perform_mannwhitneyu_test
-from Metrics.model_validation.pairwise_avg_min_dist import pairwise_distances
 from Metrics.metrics_utils.metrics_utils import perform_dbscan_clustering
-from Metrics.metrics_utils.data_utils import get_all_participants
 
 # CUDA device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
-def _run_metric_couple(part1, part2, eps=1.0):
+def _run_metric_couple(part1, part2, eps):
     original_sets = [part1, part2]
     combined_data = np.vstack((part1, part2))
     cluster_labels = perform_dbscan_clustering(combined_data, eps)
@@ -41,51 +39,28 @@ def _create_histogram(results1, results2, output_title, output_path):
     generate_double_histogram(results1, results2, output_title, output_path)
 
 
-def _find_eps(all_part, participants_exp_rep):
-    print("Calculating DBSCAN epsilon")
-    n = len(all_part)
-    res = np.zeros((n, n))
-    for i in range(n):
-        for j in range(n):
-            if i == j:
-                all_data = participants_exp_rep[str(all_part[i])]
-                tmp = pairwise_distances(all_data[:len(all_data) // 2], all_data[len(all_data) // 2:])
-            else:
-                tmp = pairwise_distances(participants_exp_rep[str(all_part[i])],
-                                          participants_exp_rep[str(all_part[j])])
-            res[i][j] = torch.mean(tmp)
-    return float(np.mean(res))
-
-
 class AvgClusterRatio:
     @staticmethod
-    def run_metric(coupling, strangers, participants_exp_rep, result_path, factor=(1.0, 10.0)):
+    def run_metric(coupling, strangers, participants_exp_rep, result_path, eps):
         print("-" * 150)
-        print("Running Cluster Couple Ratio Metric\n")
-        # eps = _find_eps(get_all_participants(coupling), participants_exp_rep)
+        print("\nRunning Cluster Couple Ratio Metric\n")
 
         couples_results = np.zeros((len(coupling)))
         strangers_results = np.zeros((len(strangers)))
 
-        # for i in range(len(factor)):
-            # epsilon = eps*factor[i]
-        for j in range(coupling):
+        for i in range(coupling):
             print("calculating couple", coupling[i])
-            couples_results[i][j] = _run_metric_couple(participants_exp_rep[str(coupling[j][0])], participants_exp_rep[str(coupling[j][1])], 2.0)
+            couples_results[i] = _run_metric_couple(participants_exp_rep[str(coupling[i][0])], participants_exp_rep[str(coupling[i][1])], eps)
 
-        for j in range(strangers):
+        for i in range(strangers):
             print("calculating strangers", strangers[i])
-            strangers_results[i][j] = _run_metric_couple(participants_exp_rep[str(strangers[j][0])], participants_exp_rep[str(strangers[j][1])], 2.0)
+            strangers_results[i] = _run_metric_couple(participants_exp_rep[str(strangers[i][0])], participants_exp_rep[str(strangers[i][1])], eps)
 
         print("\nCalculate statistics:")
-        # for i in range(len(factor)):
-        # print(f"Case eps*{factor[i]}:")
-        couple_res = couples_results[i]
-        strangers_res = strangers_results[i]
-        perform_mannwhitneyu_test("Couples", couple_res, "Strangers", strangers_res)
+        perform_mannwhitneyu_test("Couples", couples_results, "Strangers", strangers_results)
 
         print("Creating Histogram")
-        _create_histogram(couple_res, strangers_res, "Average eps=2 Cosine Similarity Histogram",
+        _create_histogram(couples_results, strangers_results, "Average eps=2 Cosine Similarity Histogram",
                           os.path.join(result_path, "hist_avg_cos_sim_2.png"))
 
 

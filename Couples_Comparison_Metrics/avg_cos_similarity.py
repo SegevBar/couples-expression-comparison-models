@@ -24,7 +24,7 @@ def _run_metric_couple(part1, part2):
     return cos_similarities
 
 
-def _get_mean_by_threshold(cos_similarities, threshold=1.0):
+def _get_mean_by_threshold(cos_similarities, threshold):
     sorted_values, sorted_indices = torch.sort(cos_similarities, descending=True)
     num_to_keep = int(len(sorted_values) * threshold)
 
@@ -37,34 +37,31 @@ def _create_histogram(results1, results2, output_path, output_title):
 
 class AvgCosSim:
     @staticmethod
-    def run_metric(coupling, strangers, participants_exp_rep, result_path, thresholds=(0.9)):
+    def run_metric(coupling, strangers, participants_exp_rep, result_path, threshold):
         print("-" * 150)
-        print("Running Average Minimal Cosine Similarity Metric\n")
+        print("\nRunning Average Minimal Cosine Similarity Metric\n")
 
-        couples_results = np.zeros((1, len(coupling)))
-        strangers_results = np.zeros((1, len(strangers)))
+        couples_results = np.zeros((len(coupling)))
+        strangers_results = np.zeros((len(strangers)))
         for i in range(len(coupling)):
             print("calculating couple", coupling[i])
             res = _run_metric_couple(participants_exp_rep[str(coupling[i][0])],
                                                          participants_exp_rep[str(coupling[i][1])])
-            for j in range(1):
-                couples_results[j][i] = _get_mean_by_threshold(res, 0.9)
+            couples_results[i] = _get_mean_by_threshold(res, threshold)
 
         for i in range(len(strangers)):
             print("calculating strangers", strangers[i])
             res = _run_metric_couple(participants_exp_rep[str(strangers[i][0])],
                                                            participants_exp_rep[str(strangers[i][1])])
-            for j in range(1):
-                strangers_results[j][i] = _get_mean_by_threshold(res, 0.9)
+            strangers_results[i] = _get_mean_by_threshold(res, threshold)
 
         print("\nCalculate statistics:")
-        for i in range(1):
-            print(f"Case threshold = {0.9}:")
-            couple_res = couples_results[i]
-            strangers_res = strangers_results[i]
-            perform_mannwhitneyu_test("Couples", couple_res, "Strangers", strangers_res)
+        print(f"Case threshold = {threshold}:")
+        couple_res = couples_results[i]
+        strangers_res = strangers_results[i]
+        perform_mannwhitneyu_test("Couples", couple_res, "Strangers", strangers_res)
 
-            print("Creating Histogram")
-            _create_histogram(couple_res, strangers_res, f"Average {0.9 * 100}% Cosine Similarity Histogram",
-                              os.path.join(result_path, f"hist_avg_cos_sim_{0.9 * 100}.png"))
+        print("Creating Histogram")
+        _create_histogram(couple_res, strangers_res, f"Average {threshold * 100}% Cosine Similarity Histogram",
+                          os.path.join(result_path, f"hist_avg_cos_sim_{threshold * 100}.png"))
 
