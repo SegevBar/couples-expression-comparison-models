@@ -56,8 +56,8 @@ def main(args):
             AvgCosSim.run_metric(couples, strangers, participants_exp_rep, result_path, threshold=0.9)
         elif metric == "cluster_couple_ratio":
             AvgClusterRatio.run_metric(couples, strangers, participants_exp_rep, result_path, eps=2.0)
-        if metric != "tsne":
-            METRICS[metric].run_metric(participants_exp_rep, result_path)
+        if metric == "tsne":
+            TSNE.run_metric(participants_exp_rep, result_path)
 
 
 if __name__ == '__main__':

@@ -14,9 +14,9 @@ def tsne_couple(data, part_labels, result_path):
 
 class TSNE:
     @staticmethod
-    def run_metric_all(data, result_path):
+    def run_metric(data, result_path):
         print("-" * 150)
-        print(f"\nRunning t-SNE type: {type}")
+        print(f"\nRunning t-SNE")
 
         all_exp_rep, part_labels = get_all_exp_rep_and_label(data)
         output_path = os.path.join(result_path, "all_points_tsne.png")
