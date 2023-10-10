@@ -1,6 +1,7 @@
 import os
 import argparse
 import numpy as np
+import re
 
 
 def get_absolute_path(dir_type):
@@ -43,7 +44,8 @@ def main(args):
         print(f"Current video: {filename}")
 
         # get current user_id and it's couple_id
-        parts = filename.split("_")
+        pattern = re.escape("_") + "|" + re.escape(".")
+        parts = re.split(pattern, filename)
         user_id = parts[0]
         couple_id = parts[1]
 
