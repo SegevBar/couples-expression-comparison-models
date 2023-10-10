@@ -31,7 +31,7 @@ def _get_mean_by_threshold(cos_similarities, threshold):
     return torch.mean(sorted_values[:num_to_keep])
 
 
-def _create_histogram(results1, results2, output_path, output_title):
+def _create_histogram(results1, results2, output_title, output_path):
     generate_double_histogram(results1, results2, output_title, output_path)
 
 
@@ -63,5 +63,5 @@ class AvgCosSim:
 
         print("Creating Histogram")
         _create_histogram(couple_res, strangers_res, f"Average {threshold * 100}% Cosine Similarity Histogram",
-                          os.path.join(result_path, f"hist_avg_cos_sim_{threshold * 100}.png"))
+                          os.path.join(result_path, f"hist_avg_cos_sim_{str(threshold * 100)}.png"))
 
