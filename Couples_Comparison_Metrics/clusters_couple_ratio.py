@@ -48,11 +48,11 @@ class AvgClusterRatio:
         couples_results = np.zeros((len(coupling)))
         strangers_results = np.zeros((len(strangers)))
 
-        for i in range(coupling):
+        for i in range(len(coupling)):
             print("calculating couple", coupling[i])
             couples_results[i] = _run_metric_couple(participants_exp_rep[str(coupling[i][0])], participants_exp_rep[str(coupling[i][1])], eps)
 
-        for i in range(strangers):
+        for i in range(len(strangers)):
             print("calculating strangers", strangers[i])
             strangers_results[i] = _run_metric_couple(participants_exp_rep[str(strangers[i][0])], participants_exp_rep[str(strangers[i][1])], eps)
 
