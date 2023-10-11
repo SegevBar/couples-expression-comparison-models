@@ -60,7 +60,7 @@ class AvgClusterRatio:
         perform_mannwhitneyu_test("Couples", couples_results, "Strangers", strangers_results)
 
         print("Creating Histogram")
-        _create_histogram(couples_results, strangers_results, "Average eps=2 Cosine Similarity Histogram",
-                          os.path.join(result_path, "hist_avg_cos_sim_2.png"))
+        _create_histogram(couples_results, strangers_results, "Average eps=2 Cluster Couple Ratio Histogram",
+                          os.path.join(result_path, "hist_cluster_ratio_2.png"))
 
 

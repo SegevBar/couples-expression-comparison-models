@@ -57,11 +57,9 @@ class AvgCosSim:
 
         print("\nCalculate statistics:")
         print(f"Case threshold = {threshold}:")
-        couple_res = couples_results[i]
-        strangers_res = strangers_results[i]
-        perform_mannwhitneyu_test("Couples", couple_res, "Strangers", strangers_res)
+        perform_mannwhitneyu_test("Couples", couples_results, "Strangers", strangers_results)
 
         print("Creating Histogram")
-        _create_histogram(couple_res, strangers_res, f"Average {threshold * 100}% Cosine Similarity Histogram",
+        _create_histogram(couples_results, strangers_results, f"Average {threshold * 100}% Cosine Similarity Histogram",
                           os.path.join(result_path, f"hist_avg_cos_sim_{str(threshold * 100)}.png"))
 
