@@ -28,6 +28,7 @@ result_folder_name="results_${current_date}_${current_exp_rep_generator}"
 mkdir "Results/$result_folder_name"
 echo "Folder '$result_folder_name' created."
 
+echo ""
 echo "Generating expressions represantations CSVS"
 eval "$(conda shell.bash hook)"
 conda activate $conda_env
@@ -36,6 +37,7 @@ cd Expression_Representation_Generators
 python expressions_represantation_generator.py -t $current_exp_rep_generator -r $result_folder_name
 
 # Run Comparisons Metrics
+echo ""
 echo "Calculating Metrics:"
 cd ../Couples_Comparison_Metrics
 python run_comparison_metrics.py -r $result_folder_name --metrics "avg_min_dist:${AVERAGE_MINIMAL_DISTANCE} avg_cos_similarity:${AVERAGE_COSINE_SIMILARITY} cluster_couple_ratio:${CLUSTER_COUPLE_RATIO} tsne:${TSNE}"
