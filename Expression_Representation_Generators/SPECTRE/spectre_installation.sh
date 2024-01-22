@@ -39,6 +39,7 @@ mv spectre_model.tar pretrained/
 
 conda install -c conda-forge yacs
 pip install numpy==1.23.1
-pip install git+https://github.com/facebookresearch/pytorch3d.git@v0.6.2
+# pip install git+https://github.com/facebookresearch/pytorch3d.git@v0.6.2
+conda install pytorch3d -c pytorch3d
 
 echo "Installation finished"
