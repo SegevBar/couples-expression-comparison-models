@@ -26,16 +26,16 @@ bash install.sh
 ```
 
 ## Usage 
-1) Save your data in **couples_expression_comparison_models\Data** directory according to the following format:
-   * Each participant should have a unique folder containing all their videos.
-   * A csv file named **"coupling.csv"** filled with the coupled participants by the name of their folder, an example is provided. 
+1) Save your participants videos in **couples_expression_comparison_models\Data** directory.
+   * The name of each video should be of the following format: <participantID>_<coupleID>_<any_other_data_prefered>.mp4
 2) Run the program script: 
 ```bash
 bash run_couples_expression_comparison_model.sh
 ```
 The program:
 * Creates a csv file for each participant containing the expressions' representation for each video frame.
-* Calculates the comparison metrics by the couples provided in the coupling.csv and presents the results.
+* Creates a csv file "coupling.csv" containing the coupled participants according to the coupleID of each participant provided in the video name. 
+* Calculates the comparison metrics by the couples provided in the "coupling.csv" and presents the results.
 
 ### Running from Google Colab
 We provided you a jupiter notebook prepared for running in Google Colab named **exp_compare_demo.ipynb**.
