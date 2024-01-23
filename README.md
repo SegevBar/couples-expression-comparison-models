@@ -27,7 +27,7 @@ bash install.sh
 
 ## Usage 
 1) Save your participants videos in **couples_expression_comparison_models\Data** directory.
-   * The name of each video should be of the following format: <participantID>_<coupleID>_<any_other_data_prefered>.mp4
+   * The name of each video should be of the following format: `<participantID>_<coupleID>_<any_other_data_prefered>.mp4`
 2) Run the program script: 
 ```bash
 bash run_couples_expression_comparison_model.sh
